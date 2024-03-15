@@ -12,10 +12,35 @@ class Usuario extends ResourceController
         $this->model = $this->setModel(new UsuarioModel());
     }
 
-    public function read()
+    public function read($usuario_id = null)
     {
-        $usuario = $this->model->findAll();
-        return $this->respond($usuario);
+        if($usuario_id == null):
+            $response = [
+                'status'   => 200,
+                'error'    => null,
+                'messages' => [
+                    'success'   => 'Lista de usuarios cargada correctamente.',
+                    'data'      => $this->model->findAll()
+                ]
+            ];
+
+            return $this->respond( $response );
+        else:
+            $usuario = $this->model->find($usuario_id);
+
+            if(!$usuario) return $this->failNotFound('No se encontró información del usuario con el id proporcionado (' . $usuario_id . ')');
+
+            $response = [
+                'status'   => 200,
+                'error'    => null,
+                'messages' => [
+                    'success'   => 'Información de usuario cargada correctamente.',
+                    'data'      => $usuario
+                ]
+            ];
+
+            return $this->respond($response);
+        endif;
     }
 
     public function create()
@@ -91,7 +116,7 @@ class Usuario extends ResourceController
 
             $existeUsuario = $this->model->find($usuario_id);
             if($existeUsuario == null)
-                return $this->failNotFound('No se encontró datos de usuario con el id proporcionado (' . $usuario_id . ')');
+                return $this->failNotFound('No se encontró información del usuario con el id proporcionado (' . $usuario_id . ')');
 
             if( $this->model->delete($usuario_id) ):
 
@@ -109,6 +134,34 @@ class Usuario extends ResourceController
             else:
                 return $this->failValidationErrors( $this->model->validation->getErrors() );
             endif;
+        } catch (\Throwable $e) {
+            $complemento = (ENVIRONMENT == 'development') ? $e->getMessage() : '';
+
+            return $this->failServerError( 'Ha ocurrido un error en el servidor de base de datos. ' . $complemento );
+        }
+    }
+
+    public function do_login()
+    {
+        try{
+            $data       = $this->request->getJSON();
+            $usuario    = $this->model->where('usuario_nombre', $data->usuario_nombre)->first();
+
+            if(!$usuario) return $this->failUnauthorized('La cuenta de usuario no existe.');
+
+            $verify     = password_verify($data->usuario_contrasenia, $usuario['usuario_contrasenia']);
+
+            if(!$verify) return $this->failUnauthorized('La contraseña que ingresó no es correcta.');
+
+            $response = [
+                'status'   => 201,
+                'error'    => null,
+                'messages' => [
+                    'success'   => 'Bienvenido ' . $usuario['usuario_propietario']
+                ]
+            ];
+
+            return $this->respondCreated($response);
         } catch (\Throwable $e) {
             $complemento = (ENVIRONMENT == 'development') ? $e->getMessage() : '';
 
