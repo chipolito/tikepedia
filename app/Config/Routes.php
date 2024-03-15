@@ -16,4 +16,12 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->post('dologin', 'Usuario::doLogin');
         $routes->post('putavatar', 'Usuario::putAvatar');
     });
+
+    $routes->group('departamento', static function ($routes) {
+        $routes->get('/', 'Departamento::read');
+        $routes->get('(:num)', 'Departamento::read/$1');
+        $routes->post('create', 'Departamento::create');
+        $routes->put('update/(:num)', 'Departamento::update/$1');
+        $routes->delete('delete/(:num)', 'Departamento::delete/$1');
+    });
 });
