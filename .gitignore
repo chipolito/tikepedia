@@ -24,4 +24,4 @@ writable/logs/log-*.log
 writable/session/*
 
 public/assets/images/usuario/*
-public/assets/images/configuracion/*
+public/assets/images/organizacion/*
