@@ -33,4 +33,9 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->delete('delete/(:num)', 'Organizacion::delete/$1');
         $routes->post('putlogo', 'Organizacion::putLogo');
     });
+
+    $routes->group('configuracion', static function ($routes) {
+        $routes->get('(:any)', 'Configuracion::read/$1');
+        $routes->put('update/(:any)', 'Configuracion::update/$1');
+    });
 });
