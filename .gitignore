@@ -22,3 +22,5 @@ writable/debugbar/*
 writable/logs/log-*.log
 
 writable/session/*
+
+public/assets/images/usuario/*
