@@ -7,11 +7,13 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) {
-    $routes->get('usuario', 'Usuario::read');
-    $routes->get('usuario/(:num)', 'Usuario::read/$1');
-    $routes->post('usuario/create', 'Usuario::create');
-    $routes->put('usuario/update/(:num)', 'Usuario::update/$1');
-    $routes->delete('usuario/delete/(:num)', 'Usuario::delete/$1');
-    $routes->post('usuario/dologin', 'Usuario::doLogin');
-    $routes->post('usuario/putavatar', 'Usuario::putAvatar');
+    $routes->group('usuario', static function ($routes) {
+        $routes->get('/', 'Usuario::read');
+        $routes->get('(:num)', 'Usuario::read/$1');
+        $routes->post('create', 'Usuario::create');
+        $routes->put('update/(:num)', 'Usuario::update/$1');
+        $routes->delete('delete/(:num)', 'Usuario::delete/$1');
+        $routes->post('dologin', 'Usuario::doLogin');
+        $routes->post('putavatar', 'Usuario::putAvatar');
+    });
 });
