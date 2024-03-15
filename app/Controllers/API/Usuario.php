@@ -141,7 +141,7 @@ class Usuario extends ResourceController
         }
     }
 
-    public function do_login()
+    public function doLogin()
     {
         try{
             $data       = $this->request->getJSON();
