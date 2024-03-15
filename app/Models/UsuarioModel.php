@@ -48,7 +48,7 @@ class UsuarioModel extends Model
         'usuario_organizacion'  => 'permit_empty|max_length[1]|integer|is_not_unique[organizacion.organizacion_id]',
         'usuario_tipo'          => 'required|max_length[1]|integer|in_list[1,2,3]',
         'usuario_firma'         => 'permit_empty|alpha_numeric_punct',
-        'usuario_avatar'        => 'permit_empty|alpha_numeric_space',
+        'usuario_avatar'        => 'permit_empty|alpha_numeric_punct',
         'usuario_estatus'       => 'required|max_length[1]|integer',
     ];
 
@@ -98,7 +98,7 @@ class UsuarioModel extends Model
             'alpha_numeric_punct'   => 'Este campo no debe tener caracteres especiales.'
         ],
         'usuario_avatar'        => [
-            'alpha_numeric_space'   => 'Este campo no debe tener caracteres especiales.'
+            'alpha_numeric_punct'   => 'Este campo no debe tener caracteres especiales.'
         ],
         'usuario_estatus'       => [
             'required'              => 'Este campo es requerido.',

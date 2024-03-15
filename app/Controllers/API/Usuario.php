@@ -168,4 +168,50 @@ class Usuario extends ResourceController
             return $this->failServerError( 'Ha ocurrido un error en el servidor de base de datos. ' . $complemento );
         }
     }
+
+    public function putAvatar()
+    {
+        $file       = $this->request->getFile('avatar');
+        $usuario_id = $this->request->getPost('usuario_id');
+
+        $path       = ROOTPATH . 'public/assets/images/usuario';
+
+        $rules      = [
+            'avatar' => [
+                'label' => 'Avatar usuario',
+                'rules' => [
+                    'is_image[avatar]',
+                    'max_size[avatar, 200]'
+                ],
+                'errors' => [
+                    'is_image' => 'Solo se pueden subir archivos de tipo imagen',
+                    'max_size' => 'No puede subir archivos que superen los 200 kb'
+                ]
+            ]
+        ];
+
+        if(!$file->isValid()) return $this->failValidationErrors( $file->getErrorString() );
+
+        if(!$this->validateData([], $rules)) return $this->failValidationErrors( $this->validator->getErrors() );
+
+        if(!$file->hasMoved()):
+            $newName = $usuario_id .'.'. $file->getClientExtension();
+            
+            $file->move($path, $newName, true);
+
+            $this->model->update($usuario_id, ['usuario_avatar' => $newName]);
+            
+            $response = [
+                'status'   => 201,
+                'error'    => null,
+                'messages' => [
+                    'success'   => 'Se a actualizado la foto de perfil correctamente.'
+                ]
+            ];
+
+            return $this->respondCreated($response);
+        else:
+            return $this->failValidationErrors('No se pudo procesar la carga del archivo correctamente.');
+        endif;
+    }
 }

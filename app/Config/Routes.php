@@ -13,4 +13,5 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
     $routes->put('usuario/update/(:num)', 'Usuario::update/$1');
     $routes->delete('usuario/delete/(:num)', 'Usuario::delete/$1');
     $routes->post('usuario/dologin', 'Usuario::doLogin');
+    $routes->post('usuario/putavatar', 'Usuario::putAvatar');
 });
