@@ -24,4 +24,13 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->put('update/(:num)', 'Departamento::update/$1');
         $routes->delete('delete/(:num)', 'Departamento::delete/$1');
     });
+
+    $routes->group('organizacion', static function ($routes) {
+        $routes->get('/', 'Organizacion::read');
+        $routes->get('(:num)', 'Organizacion::read/$1');
+        $routes->post('create', 'Organizacion::create');
+        $routes->put('update/(:num)', 'Organizacion::update/$1');
+        $routes->delete('delete/(:num)', 'Organizacion::delete/$1');
+        $routes->post('putlogo', 'Organizacion::putLogo');
+    });
 });

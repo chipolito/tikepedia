@@ -33,7 +33,7 @@ class DepartamentoModel extends Model
     protected $validationRules          = [
         'departamento_nombre'   => 'required|max_length[255]|string',
         'departamento_gerente'  => 'permit_empty|max_length[10]|integer|is_not_unique[usuario.usuario_id]',
-        'departamento_estatus'  => 'required|max_length[1]|integer',
+        'departamento_estatus'  => 'required|max_length[1]|integer|in_list[0,1]',
     ];
 
     protected $validationMessages       = [
@@ -50,7 +50,8 @@ class DepartamentoModel extends Model
         'departamento_estatus'  => [
             'required'              => 'Este campo es requerido.',
             'max_length'            => 'El tamaño máximo de este campo debe ser 1 carácter.',
-            'integer'               => 'Tipo de dato proporcionado no es valido.'
+            'integer'               => 'Tipo de dato proporcionado no es valido.',
+            'in_list'               => 'La clave de estatus proporcionado no existe'
         ]
     ];
 
