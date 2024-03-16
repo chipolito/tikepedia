@@ -36,7 +36,7 @@ class OrganizacionModel extends Model
 
     // Validation
     protected $validationRules          = [
-        'organizacion_nombre'           => 'required|max_length[250]|alpha_numeric_punct',
+        'organizacion_nombre'           => 'required|max_length[250]|string',
         'organizacion_telefono'         => 'permit_empty|max_length[50]|alpha_numeric_space',
         'organizacion_correo'           => 'permit_empty|max_length[250]|valid_email',
         'organizacion_web'              => 'permit_empty|max_length[250]|string',
@@ -50,7 +50,7 @@ class OrganizacionModel extends Model
         'organizacion_nombre'       => [
             'required'                  => 'Este campo es requerido.',
             'max_length'                => 'El tamaño máximo de este campo debe ser 250 caracteres.',
-            'alpha_numeric_punct'       => 'Este campo no debe tener caracteres especiales.'
+            'string'                    => 'Este campo no debe tener caracteres especiales.'
         ],
         'organizacion_telefono'     => [
             'max_length'                => 'El tamaño máximo de este campo debe ser 50 caracteres.',

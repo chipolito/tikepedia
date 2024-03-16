@@ -47,7 +47,7 @@ class UsuarioModel extends Model
         'usuario_departamento'  => 'permit_empty|max_length[10]|integer|is_not_unique[departamento.departamento_id]',
         'usuario_organizacion'  => 'permit_empty|max_length[10]|integer|is_not_unique[organizacion.organizacion_id]',
         'usuario_tipo'          => 'required|max_length[1]|integer|in_list[1,2,3]',
-        'usuario_firma'         => 'permit_empty|alpha_numeric_punct',
+        'usuario_firma'         => 'permit_empty|string',
         'usuario_avatar'        => 'permit_empty|alpha_numeric_punct',
         'usuario_estatus'       => 'required|max_length[1]|integer|in_list[0,1]',
     ];
@@ -95,7 +95,7 @@ class UsuarioModel extends Model
             'in_list'               => 'La clave de tipo de usuario proporcionado no existe.'
         ],
         'usuario_firma'         => [
-            'alpha_numeric_punct'   => 'Este campo no debe tener caracteres especiales.'
+            'string'                => 'Este campo no debe tener caracteres especiales.'
         ],
         'usuario_avatar'        => [
             'alpha_numeric_punct'   => 'Este campo no debe tener caracteres especiales.'
