@@ -44,4 +44,12 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->post('hasPermission', 'Permiso::hasPermission');
         $routes->put('putpermission', 'Permiso::putPermission');
     });
+
+    $routes->group('prioridad', static function ($routes) {
+        $routes->get('/', 'Prioridad::read');
+        $routes->get('(:num)', 'Prioridad::read/$1');
+        $routes->post('create', 'Prioridad::create');
+        $routes->put('update/(:num)', 'Prioridad::update/$1');
+        $routes->delete('delete/(:num)', 'Prioridad::delete/$1');
+    });
 });
