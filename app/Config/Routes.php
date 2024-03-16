@@ -52,4 +52,12 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->put('update/(:num)', 'Prioridad::update/$1');
         $routes->delete('delete/(:num)', 'Prioridad::delete/$1');
     });
+
+    $routes->group('sla', static function ($routes) {
+        $routes->get('/', 'Sla::read');
+        $routes->get('(:num)', 'Sla::read/$1');
+        $routes->post('create', 'Sla::create');
+        $routes->put('update/(:num)', 'Sla::update/$1');
+        $routes->delete('delete/(:num)', 'Sla::delete/$1');
+    });
 });
