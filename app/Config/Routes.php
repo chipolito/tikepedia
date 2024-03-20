@@ -68,4 +68,12 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->put('update/(:num)', 'Temaayuda::update/$1');
         $routes->delete('delete/(:num)', 'Temaayuda::delete/$1');
     });
+
+    $routes->group('ticket', static function ($routes) {
+        $routes->get('/', 'Ticket::read');
+        $routes->get('(:num)', 'Ticket::read/$1');
+        $routes->post('create', 'Ticket::create');
+        $routes->put('update/(:num)', 'Ticket::update/$1');
+        $routes->delete('delete/(:num)', 'Ticket::delete/$1');
+    });
 });
