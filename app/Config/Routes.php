@@ -86,3 +86,15 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->post('putevidencia', 'Historia::putEvidencia');
     });
 });
+
+$routes->get('/', 'Control::login', ["filter" => "noauth"]);
+$routes->get('login', 'Control::login', ["filter" => "noauth"]);
+$routes->get('logout', 'Control::logout');
+
+$routes->group('agente', ["filter" => "auth"], function ($routes) {
+    $routes->get('/', 'Agente::index');
+});
+
+$routes->group('cliente', ["filter" => "auth"], function ($routes) {
+    $routes->get('/', 'Cliente::index');
+});

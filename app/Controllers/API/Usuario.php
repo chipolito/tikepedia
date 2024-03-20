@@ -153,11 +153,16 @@ class Usuario extends ResourceController
 
             if(!$verify) return $this->failUnauthorized('La contraseña que ingresó no es correcta.');
 
+            $usuario['isLoggedIn'] = TRUE;
+
+            session()->set($usuario);
+
             $response = [
                 'status'   => 201,
                 'error'    => null,
                 'messages' => [
-                    'success'   => 'Bienvenido ' . $usuario['usuario_propietario']
+                    'success'       => 'Bienvenido ' . $usuario['usuario_propietario'],
+                    'usuario_tipo'  => $usuario['usuario_tipo']
                 ]
             ];
 
