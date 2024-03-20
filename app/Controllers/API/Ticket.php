@@ -196,4 +196,65 @@ class Ticket extends ResourceController
             return $this->failServerError( 'Ha ocurrido un error en el servidor de base de datos. ' . $complemento );
         }
     }
+
+    public function putEvidencia()
+    {
+        $evidencias     = $this->request->getFiles();
+        $ticket_id      = $this->request->getPost('ticket_id');
+
+        $path           = ROOTPATH . 'public/assets/evidencia/ticket/' . $ticket_id;
+
+        $rules          = [
+            'evidencia' => [
+                'label' => 'Evidencia ticket',
+                'rules' => [
+                    'max_size[evidencia, 2000]'
+                ],
+                'errors' => [
+                    'max_size' => 'No puede subir archivos que superen los 2MB'
+                ]
+            ]
+        ];
+
+        $noSave     = [];
+        $success    = [];
+
+        foreach ($evidencias['evidencia'] as $file) {
+            if(!$file->isValid()) {
+                $noSave[] = ['file' => $file->getName(), 'reason' => $file->getErrorString()];
+                continue;
+            }
+
+            if(!$this->validateData([], $rules)) {
+                $noSave[] = ['file' => $file->getName(), 'reason' => $this->validator->getErrors()];
+                continue;
+            }
+
+            if(!$file->hasMoved()):
+                $originalName   = $file->getName();
+                $newName        = uniqid() .'.'. $file->getClientExtension();
+                
+                $file->move($path, $newName, true);
+
+                $success[] = ['file' => $originalName, 'newName' => $newName];
+            else:
+                $noSave[] = ['file' => $file->getName(), 'reason' => 'Error general'];
+            endif;
+        }
+
+        if( count($success) > 0 ) {
+            $this->model->update($ticket_id, ['ticket_evidencia' => json_encode($success) ]);
+        }
+
+        $response = [
+            'status'   => 201,
+            'error'    => null,
+            'messages' => [
+                'success'   => $success,
+                'error'     => $noSave
+            ]
+        ];
+
+        return $this->respondCreated($response);
+    }
 }

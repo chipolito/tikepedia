@@ -75,6 +75,7 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->post('create', 'Ticket::create');
         $routes->put('update/(:num)', 'Ticket::update/$1');
         $routes->delete('delete/(:num)', 'Ticket::delete/$1');
+        $routes->post('putevidencia', 'Ticket::putEvidencia');
     });
 
     $routes->group('historia', static function ($routes) {
