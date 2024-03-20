@@ -76,4 +76,12 @@ $routes->group('api', ['namespace' => 'App\Controllers\API'], function($routes) 
         $routes->put('update/(:num)', 'Ticket::update/$1');
         $routes->delete('delete/(:num)', 'Ticket::delete/$1');
     });
+
+    $routes->group('historia', static function ($routes) {
+        $routes->get('(:num)', 'Historia::read/$1');
+        $routes->post('create', 'Historia::create');
+        $routes->put('update/(:num)', 'Historia::update/$1');
+        $routes->delete('delete/(:num)', 'Historia::delete/$1');
+        $routes->post('putevidencia', 'Historia::putEvidencia');
+    });
 });
