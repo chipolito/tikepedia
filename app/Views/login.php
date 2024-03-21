@@ -85,7 +85,8 @@
                     <div class="d-flex flex-center flex-lg-start flex-column w-100">              
                         <!--begin::Logo-->
                         <a href="javascript:void(0);" class="mb-7">
-                            <img alt="Logo" src="<?= base_url('assets/images/business/logo.png') ?>" width="226px"/>
+                            <img alt="Logo" src="<?= base_url('assets/images/business/logo.png') ?>" width="226px" class="theme-light-show"/>
+                            <img alt="Logo" src="<?= base_url('assets/images/business/logo-w.png') ?>" width="226px" class="theme-dark-show"/>
                         </a>    
                         <!--end::Logo-->            
 
