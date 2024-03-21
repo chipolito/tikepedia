@@ -10,7 +10,9 @@
 </head>
 <body>
 
-   <?= $this->renderSection("body") ?>
+<?php echo $this->renderSection('contenido') ?>
 
 </body>
+
+<?php echo $this->renderSection('customScripts') ?>
 </html>

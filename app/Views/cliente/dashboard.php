@@ -1,6 +1,6 @@
-<?= $this->extend("layouts/app") ?>
+<?php echo $this->extend('layouts/cliente'); ?>
 
-<?= $this->section("body") ?>
+<?php echo $this->section('contenido'); ?>
 
 <div class="container" style="margin-top:20px;">
     <div class="row">
@@ -16,4 +16,10 @@
     </div>
 </div>
 
-<?= $this->endSection() ?>
+<?php echo $this->endSection(); ?>
+
+<?php echo $this->section('customScripts'); ?>
+<script>
+    console.log('Entro js');
+</script>
+<?php echo $this->endSection(); ?>

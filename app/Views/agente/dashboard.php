@@ -1,4 +1,4 @@
-<?= $this->extend("layouts/app") ?>
+<?= $this->extend("layouts/agente") ?>
 
 <?= $this->section("body") ?>
 
