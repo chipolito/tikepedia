@@ -402,7 +402,7 @@
 
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-5">
-                                            <a href="<?= base_url('logout') ?>" class="menu-link px-5">
+                                            <a href="javascript:void(0);" class="menu-link px-5" id="btnCerrarSession">
                                                 Cerrar sesión
                                             </a>
                                         </div>
@@ -630,6 +630,7 @@
         <!--begin::Global Javascript Bundle(mandatory for all pages)-->
         <script src="<?= base_url('assets/plugins/global/plugins.bundle.js') ?>"></script>
         <script src="<?= base_url('assets/js/scripts.bundle.js') ?>"></script>
+        <script src="<?= base_url('assets/js/custom/cliente/general.js') ?>"></script>
         <!--end::Global Javascript Bundle-->
 
         <?php echo $this->renderSection('customScripts') ?>

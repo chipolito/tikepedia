@@ -31,13 +31,13 @@
 
         <!--begin::Actions-->
         <div class="d-flex align-self-center flex-center flex-shrink-0">
-            <a href="javascript:void(0);" class="btn btn-sm btn-success ms-3 px-4 py-3 d-none d-sm-inline">
-                <i class="ki-outline ki-plus-square fs-2"></i> <span>Registrar Tarea</span>
-            </a>
-
             <a href="javascript:void(0);" class="btn btn-sm btn-dark ms-3 px-4 py-3 d-none d-sm-inline">
                 <i class="ki-outline ki-plus-square fs-2"></i> <span>Registrar Ticket</span>
-            </a> 
+            </a>
+
+            <a href="javascript:void(0);" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-dark btn-active-light-dark ms-3 px-4 py-3 d-none d-sm-inline">
+                <i class="ki-outline ki-plus-square fs-2"></i> <span>Registrar Tarea</span>
+            </a>
         </div>
         <!--end::Actions-->  
     </div>
