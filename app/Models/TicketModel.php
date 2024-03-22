@@ -23,6 +23,7 @@ class TicketModel extends Model
         'ticket_departamento',
         'ticket_prioridad',
         'ticket_sla',
+        'ticket_sla_respuesta',
         'ticket_tema',
         'ticket_estatus',
         'ticket_calificacion',
@@ -52,6 +53,7 @@ class TicketModel extends Model
         'ticket_departamento'           => 'required|max_length[10]|integer|is_not_unique[departamento.departamento_id]',
         'ticket_prioridad'              => 'required|max_length[10]|integer|is_not_unique[prioridad.prioridad_id]',
         'ticket_sla'                    => 'required|max_length[10]|integer|is_not_unique[sla.sla_id]',
+        'ticket_sla_respuesta'          => 'required|max_length[10]|integer|is_not_unique[sla.sla_id]',
         'ticket_tema'                   => 'required|max_length[10]|integer|is_not_unique[tema_ayuda.tema_id]',
         'ticket_estatus'                => 'required|max_length[10]|integer|is_not_unique[ticket_estatus.estatus_id]',
         'ticket_calificacion'           => 'required|max_length[1]|integer|in_list[0,1,2,3,4,5]',
@@ -100,6 +102,12 @@ class TicketModel extends Model
             'is_not_unique'             => 'La clave de prioridad proporcionado no existe en el catalogo'
         ],
         'ticket_sla'                => [
+            'required'                  => 'Este campo es requerido.',
+            'max_length'                => 'El tamaño máximo de este campo debe ser 10 caracteres.',
+            'integer'                   => 'Tipo de dato proporcionado no es valido',
+            'is_not_unique'             => 'La clave de SLA proporcionado no existe en el catalogo'
+        ],
+        'ticket_sla_respuesta'      => [
             'required'                  => 'Este campo es requerido.',
             'max_length'                => 'El tamaño máximo de este campo debe ser 10 caracteres.',
             'integer'                   => 'Tipo de dato proporcionado no es valido',

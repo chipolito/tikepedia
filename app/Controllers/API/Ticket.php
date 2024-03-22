@@ -38,6 +38,11 @@ class Ticket extends ResourceController
                 "sla_periodo_hora", sla.sla_periodo_hora, 
                 "sla_periodo_minuto", sla.sla_periodo_minuto 
             ) AS ticket_sla_detalle,
+            JSON_OBJECT( 
+                "sla_nombre", sl.sla_nombre, 
+                "sla_periodo_hora", sl.sla_periodo_hora, 
+                "sla_periodo_minuto", sl.sla_periodo_minuto 
+            ) AS ticket_sla_respuesta_detalle,
             JSON_OBJECT(
                 "tema_nombre", tema_ayuda.tema_nombre, 
                 "tema_prioridad", ( SELECT p.prioridad_nombre FROM prioridad AS p WHERE p.prioridad_id = tema_ayuda.tema_prioridad ),
@@ -67,6 +72,7 @@ class Ticket extends ResourceController
         $builder->join('sla', 'sla.sla_id = ticket.ticket_sla', 'inner');
         $builder->join('tema_ayuda', 'tema_ayuda.tema_id = ticket.ticket_tema', 'inner');
         $builder->join('ticket_estatus', 'ticket_estatus.estatus_id = ticket.ticket_estatus', 'inner');
+        $builder->join('sla as sl', 'sl.sla_id = ticket.ticket_sla_respuesta', 'inner');
 
         $builder->where('ticket.ticket_estatus <', 5);
 
