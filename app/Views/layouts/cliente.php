@@ -127,7 +127,16 @@
                                         data-kt-menu="true"
                                         >
                                         <!--begin:Menu item-->
-                                        <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" data-kt-menu-offset="-100,0"  class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2" >
+                                        <div  class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2" >
+                                            <!--begin:Menu link-->
+                                            <span class="menu-link">
+                                                <span  class="menu-title" >Inicio</span>
+                                            </span>
+                                            <!--end:Menu link-->
+                                        </div>
+
+                                        <!--begin:Menu item-->
+                                        <div  data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" data-kt-menu-offset="-100,0"  class="menu-item menu-lg-down-accordion me-0 me-lg-2" >
                                             <!--begin:Menu link-->
                                             <span class="menu-link">
                                                 <span  class="menu-title">Herramientas</span>
@@ -274,8 +283,18 @@
                                 <!--begin::Notificaciones-->
                                 <div class="app-navbar-item ms-1 ms-lg-5">
                                     <!--begin::Menu wrapper-->
-                                    <div class="btn btn-icon btn-custom btn-active-color-dark btn-color-gray-700 w-35px h-35px w-md-40px h-md-40px position-relative" id="kt_drawer_chat_toggle">
+                                    <div class="btn btn-icon btn-custom btn-active-color-dark btn-color-gray-700 w-35px h-35px w-md-40px h-md-40px position-relative">
                                         <i class="ki-outline ki-notification-on fs-1"></i>             
+                                    </div>
+                                    <!--end::Menu wrapper-->
+                                </div>
+                                <!--end::Notificaciones-->
+
+                                <!--begin::Notificaciones-->
+                                <div class="app-navbar-item ms-1 ms-lg-5">
+                                    <!--begin::Menu wrapper-->
+                                    <div class="btn btn-icon btn-custom btn-active-color-dark btn-color-gray-700 w-35px h-35px w-md-40px h-md-40px position-relative">
+                                        <i class="ki-outline ki-element-11 fs-1"></i>             
                                     </div>
                                     <!--end::Menu wrapper-->
                                 </div>
@@ -428,20 +447,22 @@
                                     data-kt-scroll-wrappers="#kt_app_sidebar, #kt_app_sidebar_wrapper" 
                                     data-kt-scroll-offset="{default: '10px', lg: '40px'}"
                                     >
-                                    <!--begin::Stats-->
-                                    <div class="d-flex mb-8 mb-lg-10">
-                                        <!--begin::Stat-->
-                                        <div class="border border-gray-300 border-dashed rounded min-w-100px w-100 py-2 px-4 me-6">
-                                            <!--begin::Date-->                                     
-                                            <span class="fs-6 text-gray-500 fw-bold">Tickets Registrados</span>                                
-                                            <!--end::Date-->
-                                            <!--begin::Label-->
-                                            <div class="fs-2 fw-bold text-success">#0</div>
-                                            <!--end::Label-->
+
+                                    <!--begin::Progress-->
+                                    <div class="d-flex align-items-center flex-column w-100 mb-3 mb-lg-5">
+                                        <div class="d-flex justify-content-between fw-bolder fs-6 text-gray-800  w-100 mt-auto mb-3">
+                                            <span>Progreso de resultados</span>
                                         </div>
-                                        <!--end::Stat-->   
+                                        
+                                        <div class="w-100 bg-light-dark rounded mb-2" style="height: 20px">
+                                            <div class="bg-warning rounded" role="progressbar" style="height: 20px; width: 37%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                        <div class="fw-semibold fs-7 text-gray-700 w-100 mt-auto">
+                                            <span>Ha alcanzado el 37% general de respuesta.</span>
+                                        </div>
                                     </div>
-                                    <!--end::Stats-->
+                                    <!--end::Progress--> 
 
                                     <!--begin::Links-->
                                     <div class="mb-0">
@@ -451,6 +472,22 @@
 
                                         <!--begin::Row-->
                                         <div class="row g-5" data-kt-buttons="true" data-kt-buttons-target="[data-kt-button]">
+                                            <!--begin::Col-->
+                                            <div class="col-6">
+                                                <!--begin::Link-->
+                                                <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                    <!--begin::Icon-->
+                                                    <span class="mb-2">
+                                                        <i class="ki-outline ki-archive-tick fs-1"></i>
+                                                    </span> 
+                                                    <!--end::Icon-->
+                                                    <!--begin::Label-->
+                                                    <span class="fs-7 fw-bold">Listado</span> 
+                                                    <!--end::Label-->
+                                                </a>
+                                                <!--end::Link-->  
+                                            </div>
+                                            <!--end::Col--> 
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
@@ -473,16 +510,32 @@
                                                 <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
-                                                        <i class="ki-outline ki-tablet-book fs-1"></i>
+                                                        <i class="ki-outline ki-pulse fs-1"></i>
                                                     </span> 
                                                     <!--end::Icon-->
                                                     <!--begin::Label-->
-                                                    <span class="fs-7 fw-bold">Cerrados</span> 
+                                                    <span class="fs-7 fw-bold">Sin atender</span> 
                                                     <!--end::Label-->
                                                 </a>
                                                 <!--end::Link-->  
                                             </div>
                                             <!--end::Col-->    
+                                            <!--begin::Col-->
+                                            <div class="col-6">
+                                                <!--begin::Link-->
+                                                <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                    <!--begin::Icon-->
+                                                    <span class="mb-2">
+                                                        <i class="ki-outline ki-like-shapes fs-1"></i>
+                                                    </span> 
+                                                    <!--end::Icon-->
+                                                    <!--begin::Label-->
+                                                    <span class="fs-7 fw-bold">Por aprobar</span> 
+                                                    <!--end::Label-->
+                                                </a>
+                                                <!--end::Link-->  
+                                            </div>
+                                            <!--end::Col-->
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
@@ -498,39 +551,7 @@
                                                 </a>
                                                 <!--end::Link-->  
                                             </div>
-                                            <!--end::Col-->
-                                            <!--begin::Col-->
-                                            <div class="col-6">
-                                                <!--begin::Link-->
-                                                <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
-                                                    <!--begin::Icon-->
-                                                    <span class="mb-2">
-                                                        <i class="ki-outline ki-wifi-home fs-1"></i>
-                                                    </span> 
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
-                                                    <span class="fs-7 fw-bold">Nuevos</span> 
-                                                    <!--end::Label-->
-                                                </a>
-                                                <!--end::Link-->  
-                                            </div>
-                                            <!--end::Col-->    
-                                            <!--begin::Col-->
-                                            <div class="col-6">
-                                                <!--begin::Link-->
-                                                <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
-                                                    <!--begin::Icon-->
-                                                    <span class="mb-2">
-                                                        <i class="ki-outline ki-archive-tick fs-1"></i>
-                                                    </span> 
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
-                                                    <span class="fs-7 fw-bold">En Tiempo</span> 
-                                                    <!--end::Label-->
-                                                </a>
-                                                <!--end::Link-->  
-                                            </div>
-                                            <!--end::Col-->    
+                                            <!--end::Col-->   
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
