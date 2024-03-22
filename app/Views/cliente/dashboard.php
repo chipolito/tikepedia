@@ -35,7 +35,7 @@
                 <i class="ki-outline ki-plus-square fs-2"></i> <span>Registrar Ticket</span>
             </a>
 
-            <a href="javascript:void(0);" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-dark btn-active-light-dark ms-3 px-4 py-3 d-none d-sm-inline">
+            <a href="javascript:void(0);" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-secondary btn-active-light-secondary ms-3 px-4 py-3 d-none d-sm-inline">
                 <i class="ki-outline ki-plus-square fs-2"></i> <span>Registrar Tarea</span>
             </a>
         </div>
