@@ -19,7 +19,8 @@ class TemaayudaModel extends Model
         'tema_departamento',
         'tema_prioridad',
         'tema_sla',
-        'tema_estatus'
+        'tema_estatus',
+        'tema_sla_respuesta'
     ];
 
     protected bool $allowEmptyInserts   = false;
@@ -37,7 +38,8 @@ class TemaayudaModel extends Model
         'tema_departamento' => 'required|max_length[10]|integer|is_not_unique[departamento.departamento_id]',
         'tema_prioridad'    => 'required|max_length[10]|integer|is_not_unique[prioridad.prioridad_id]',
         'tema_sla'          => 'required|max_length[10]|integer|is_not_unique[sla.sla_id]',
-        'tema_estatus'      => 'required|max_length[1]|integer|in_list[0,1]'
+        'tema_estatus'      => 'required|max_length[1]|integer|in_list[0,1]',
+        'tema_sla_respuesta'=> 'required|max_length[10]|integer|is_not_unique[sla.sla_id]'
     ];
 
     protected $validationMessages       = [
@@ -69,7 +71,13 @@ class TemaayudaModel extends Model
             'max_length'                => 'El tamaño máximo de este campo debe ser 1 carácter.',
             'integer'                   => 'Tipo de dato proporcionado no es valido.',
             'in_list'                   => 'La clave de estatus proporcionado no existe'
-        ]
+        ],
+        'tema_sla_respuesta'        => [
+            'required'                  => 'Este campo es requerido.',
+            'max_length'                => 'El tamaño máximo de este campo debe ser 10 caracteres.',
+            'integer'                   => 'Este campo no debe tener caracteres especiales.',
+            'is_not_unique'             => 'La clave de SLA proporcionado no existe en el catalogo'
+        ],
     ];
 
     protected $skipValidation           = false;
