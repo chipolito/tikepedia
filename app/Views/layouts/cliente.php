@@ -489,27 +489,11 @@
                                                 </a>
                                                 <!--end::Link-->  
                                             </div>
-                                            <!--end::Col--> 
+                                            <!--end::Col-->
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
-                                                <a href="tickets_atrasados" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
-                                                    <!--begin::Icon-->
-                                                    <span class="mb-2">
-                                                        <i class="ki-outline ki-calendar fs-1"></i>
-                                                    </span> 
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
-                                                    <span class="fs-7 fw-bold">Atrasados</span> 
-                                                    <!--end::Label-->
-                                                </a>
-                                                <!--end::Link-->  
-                                            </div>
-                                            <!--end::Col-->    
-                                            <!--begin::Col-->
-                                            <div class="col-6">
-                                                <!--begin::Link-->
-                                                <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                <a href="<?= base_url('cliente/tickets_sin_atencion') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
                                                         <i class="ki-outline ki-pulse fs-1"></i>
@@ -521,7 +505,23 @@
                                                 </a>
                                                 <!--end::Link-->  
                                             </div>
-                                            <!--end::Col-->    
+                                            <!--end::Col-->  
+                                            <!--begin::Col-->
+                                            <div class="col-6">
+                                                <!--begin::Link-->
+                                                <a href="<?= base_url('cliente/tickets_atrasados') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                    <!--begin::Icon-->
+                                                    <span class="mb-2">
+                                                        <i class="ki-outline ki-calendar fs-1"></i>
+                                                    </span> 
+                                                    <!--end::Icon-->
+                                                    <!--begin::Label-->
+                                                    <span class="fs-7 fw-bold">Atrasados</span> 
+                                                    <!--end::Label-->
+                                                </a>
+                                                <!--end::Link-->  
+                                            </div>
+                                            <!--end::Col-->  
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->

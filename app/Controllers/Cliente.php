@@ -24,6 +24,11 @@ class Cliente extends BaseController
         return view('cliente/ticketsNuevos');
     }
 
+    public function ticketsSinAtencion()
+    {
+        return view('cliente/ticketsSinAtencion');
+    }
+
     public function ticketsAtrasados()
     {
         return view('cliente/ticketsAtrasados');

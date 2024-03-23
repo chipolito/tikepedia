@@ -98,5 +98,6 @@ $routes->group('agente', ["filter" => "auth"], function ($routes) {
 $routes->group('cliente', ["filter" => "auth"], function ($routes) {
     $routes->get('/', 'Cliente::index');
     $routes->get('tickets_nuevos', 'Cliente::ticketsNuevos');
+    $routes->get('tickets_sin_atencion', 'Cliente::ticketsSinAtencion');
     $routes->get('tickets_atrasados', 'Cliente::ticketsAtrasados');
 });
