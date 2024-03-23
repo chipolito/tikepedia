@@ -18,4 +18,9 @@ class Cliente extends BaseController
     {
         return view('cliente/dashboard');
     }
+
+    public function ticketsNuevos()
+    {
+        return view('cliente/ticketsNuevos');
+    }
 }

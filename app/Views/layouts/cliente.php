@@ -21,6 +21,8 @@
         <!--begin::Fonts(mandatory for all pages)-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
         <!--end::Fonts-->
+
+        <?php echo $this->renderSection('customCss') ?>
         
         <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
         <link href="<?= base_url('assets/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css"/>
@@ -81,7 +83,7 @@
                                 </button>
                                 <!--end::Logo wrapper-->
                                 <!--begin::Logo image-->
-                                <a href="javascript:boid(0);">
+                                <a href="javascript:void(0);">
                                     <img alt="Logo" src="<?= base_url('assets/images/business/logo.png') ?>" class="h-40px h-lg-70px theme-light-show"/>
                                     <img alt="Logo" src="<?= base_url('assets/images/business/logo-w.png') ?>" class="h-40px h-lg-70px theme-dark-show"/>
                                 </a>
@@ -475,14 +477,14 @@
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
-                                                <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                <a href="<?= base_url('cliente/tickets_nuevos') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
-                                                        <i class="ki-outline ki-archive-tick fs-1"></i>
+                                                        <i class="ki-outline ki-tablet-book fs-1"></i>
                                                     </span> 
                                                     <!--end::Icon-->
                                                     <!--begin::Label-->
-                                                    <span class="fs-7 fw-bold">Listado</span> 
+                                                    <span class="fs-7 fw-bold">Nuevos</span> 
                                                     <!--end::Label-->
                                                 </a>
                                                 <!--end::Link-->  
@@ -625,6 +627,52 @@
         <!--begin::Javascript-->
         <script>
             var baseUrl = '<?= base_url() ?>';
+
+            var localeFlatPickr = {
+                weekdays: {
+                    shorthand: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+                    longhand: [
+                        "Domingo",
+                        "Lunes",
+                        "Martes",
+                        "Miércoles",
+                        "Jueves",
+                        "Viernes",
+                        "Sábado",
+                    ],
+                },
+                months: {
+                    shorthand: [
+                        "Ene",
+                        "Feb",
+                        "Mar",
+                        "Abr",
+                        "May",
+                        "Jun",
+                        "Jul",
+                        "Ago",
+                        "Sep",
+                        "Oct",
+                        "Nov",
+                        "Dic",
+                    ],
+                    longhand: [
+                        "Enero",
+                        "Febrero",
+                        "Marzo",
+                        "Abril",
+                        "Mayo",
+                        "Junio",
+                        "Julio",
+                        "Agosto",
+                        "Septiembre",
+                        "Octubre",
+                        "Noviembre",
+                        "Diciembre",
+                    ],
+                },
+                rangeSeparator: " a "
+            };
         </script>
 
         <!--begin::Global Javascript Bundle(mandatory for all pages)-->
