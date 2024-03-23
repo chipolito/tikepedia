@@ -505,7 +505,23 @@
                                                 </a>
                                                 <!--end::Link-->  
                                             </div>
-                                            <!--end::Col-->  
+                                            <!--end::Col-->
+                                            <!--begin::Col-->
+                                            <div class="col-6">
+                                                <!--begin::Link-->
+                                                <a href="<?= base_url('cliente/tickets_en_proceso') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                    <!--begin::Icon-->
+                                                    <span class="mb-2">
+                                                        <i class="ki-outline ki-heart-circle fs-1"></i>
+                                                    </span> 
+                                                    <!--end::Icon-->
+                                                    <!--begin::Label-->
+                                                    <span class="fs-7 fw-bold">En proceso</span> 
+                                                    <!--end::Label-->
+                                                </a>
+                                                <!--end::Link-->  
+                                            </div>
+                                            <!--end::Col-->
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
@@ -553,23 +569,7 @@
                                                 </a>
                                                 <!--end::Link-->  
                                             </div>
-                                            <!--end::Col-->   
-                                            <!--begin::Col-->
-                                            <div class="col-6">
-                                                <!--begin::Link-->
-                                                <a href="javascript:void(0);" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px active border-primary border-dashed" data-kt-button="true">
-                                                    <!--begin::Icon-->
-                                                    <span class="mb-2">
-                                                        <i class="ki-outline ki-plus fs-1"></i>
-                                                    </span> 
-                                                    <!--end::Icon-->
-                                                    <!--begin::Label-->
-                                                    <span class="fs-7 fw-bold">Agregar Nuevo</span> 
-                                                    <!--end::Label-->
-                                                </a>
-                                                <!--end::Link-->  
-                                            </div>
-                                            <!--end::Col-->    
+                                            <!--end::Col-->
                                         </div>
                                         <!--end::Row-->  
                                     </div>
