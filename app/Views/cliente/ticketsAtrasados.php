@@ -135,8 +135,8 @@
                         <th class="min-w-100px">Tema</th>
                         <th class="min-w-175px">Asunto</th>
                         <th class="min-w-100px">Registro</th>
+                        <th class="min-w-100px">Ultimo movimiento</th>
                         <th class="min-w-100px">Atraso</th>
-                        <th class="min-w-100px">Prioridad</th>
                     </tr>
                 </thead>
             </table>
