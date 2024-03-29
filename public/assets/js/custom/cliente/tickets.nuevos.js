@@ -44,7 +44,8 @@ var KTTicket = (function () {
             info: false,
             order: [],
             pageLength: 10,
-            columnDefs: []
+            columnDefs: [],
+            language: KTCliente.languageDataTable
         });
     };
 

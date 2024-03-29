@@ -31,6 +31,10 @@ var KTCliente = (function () {
     return {
         init: function () {
             configuracionBotones();
+        },
+        languageDataTable: {
+            emptyTable: 'No hay registros para mostrar',
+            infoEmpty: 'No se encontraron registros'
         }
     };
 })();
