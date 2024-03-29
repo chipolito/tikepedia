@@ -131,9 +131,9 @@
                                         <!--begin:Menu item-->
                                         <div  class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2" >
                                             <!--begin:Menu link-->
-                                            <span class="menu-link">
+                                            <a href="<?= base_url('cliente') ?>" class="menu-link">
                                                 <span  class="menu-title" >Inicio</span>
-                                            </span>
+                                            </a>
                                             <!--end:Menu link-->
                                         </div>
 
@@ -437,7 +437,7 @@
                         <!--begin::Sidebar-->
                         <div id="kt_app_sidebar" class="app-sidebar  flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="275px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_toggle">
                             <!--begin::Sidebar nav-->
-                            <div class="app-sidebar-wrapper py-8 py-lg-10" id="kt_app_sidebar_wrapper">
+                            <div class="app-sidebar-wrapper py-8" id="kt_app_sidebar_wrapper">
                                 <!--begin::Nav wrapper-->
                                 <div
                                     id="kt_app_sidebar_nav_wrapper"
@@ -451,17 +451,17 @@
                                     >
 
                                     <!--begin::Progress-->
-                                    <div class="d-flex align-items-center flex-column w-100 mb-3 mb-lg-5">
-                                        <div class="d-flex justify-content-between fw-bolder fs-6 text-gray-800  w-100 mt-auto mb-3">
+                                    <div class="d-flex align-items-center flex-column w-100 mb-2">
+                                        <div class="d-flex justify-content-between fw-bolder fs-6 text-gray-800  w-100 mt-auto mb-2">
                                             <span>Progreso de resultados</span>
                                         </div>
                                         
-                                        <div class="w-100 bg-light-dark rounded mb-2" style="height: 20px">
+                                        <div class="w-100 bg-light-dark rounded mb-0" style="height: 20px">
                                             <div class="bg-warning rounded" role="progressbar" style="height: 20px; width: 37%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
 
                                         <div class="fw-semibold fs-7 text-gray-700 w-100 mt-auto">
-                                            <span>Ha alcanzado el 37% general de respuesta.</span>
+                                            <span>37% general de respuesta.</span>
                                         </div>
                                     </div>
                                     <!--end::Progress--> 
@@ -469,7 +469,7 @@
                                     <!--begin::Links-->
                                     <div class="mb-0">
                                         <!--begin::Title-->
-                                        <h3 class="text-gray-800 fw-bold mb-8">Tickets</h3>
+                                        <h3 class="text-gray-800 fw-bold mb-5">Tickets</h3>
                                         <!--end::Title-->
 
                                         <!--begin::Row-->
