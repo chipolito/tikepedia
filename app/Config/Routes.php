@@ -101,4 +101,5 @@ $routes->group('cliente', ["filter" => "auth"], function ($routes) {
     $routes->get('tickets_sin_atencion', 'Cliente::ticketsSinAtencion');
     $routes->get('tickets_en_proceso', 'Cliente::ticketsEnProceso');
     $routes->get('tickets_atrasados', 'Cliente::ticketsAtrasados');
+    $routes->get('tickets_por_aprobar', 'Cliente::ticketsPorAprobar');
 });

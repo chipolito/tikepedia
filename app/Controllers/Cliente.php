@@ -38,4 +38,9 @@ class Cliente extends BaseController
     {
         return view('cliente/ticketsAtrasados');
     }
+
+    public function ticketsPorAprobar()
+    {
+        return view('cliente/ticketsPorAprobar');
+    }
 }
