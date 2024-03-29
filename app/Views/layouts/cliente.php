@@ -129,7 +129,7 @@
                                         data-kt-menu="true"
                                         >
                                         <!--begin:Menu item-->
-                                        <div  class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2" >
+                                        <div  class="menu-item menu-here-bg me-0 me-lg-2 link-inicio" >
                                             <!--begin:Menu link-->
                                             <a href="<?= base_url('cliente') ?>" class="menu-link">
                                                 <span  class="menu-title" >Inicio</span>
@@ -477,7 +477,7 @@
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
-                                                <a href="<?= base_url('cliente/tickets_nuevos') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                <a href="<?= base_url('cliente/tickets_nuevos') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200 link-nuevo" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
                                                         <i class="ki-outline ki-tablet-book fs-1"></i>
@@ -493,7 +493,7 @@
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
-                                                <a href="<?= base_url('cliente/tickets_sin_atencion') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                <a href="<?= base_url('cliente/tickets_sin_atencion') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200 link-sin-atender" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
                                                         <i class="ki-outline ki-pulse fs-1"></i>
@@ -509,7 +509,7 @@
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
-                                                <a href="<?= base_url('cliente/tickets_en_proceso') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                <a href="<?= base_url('cliente/tickets_en_proceso') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200 link-en-proceso" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
                                                         <i class="ki-outline ki-heart-circle fs-1"></i>
@@ -525,7 +525,7 @@
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
-                                                <a href="<?= base_url('cliente/tickets_atrasados') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                <a href="<?= base_url('cliente/tickets_atrasados') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200 link-atrasados" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
                                                         <i class="ki-outline ki-calendar fs-1"></i>
@@ -541,7 +541,7 @@
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
-                                                <a href="<?= base_url('cliente/tickets_por_aprobar') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                <a href="<?= base_url('cliente/tickets_por_aprobar') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200 link-por-aprobar" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
                                                         <i class="ki-outline ki-like-shapes fs-1"></i>
@@ -557,7 +557,7 @@
                                             <!--begin::Col-->
                                             <div class="col-6">
                                                 <!--begin::Link-->
-                                                <a href="<?= base_url('cliente/tickets_finalizados') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200" data-kt-button="true">
+                                                <a href="<?= base_url('cliente/tickets_finalizados') ?>" class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-100px h-100px border-gray-200 link-finalizados" data-kt-button="true">
                                                     <!--begin::Icon-->
                                                     <span class="mb-2">
                                                         <i class="ki-outline ki-medal-star fs-1"></i>

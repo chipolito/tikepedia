@@ -52,9 +52,14 @@ var KTBoard = (function () {
         chartAvance.render();
     };
 
+    var configuracionGeneral = () => {
+        $('.link-inicio').addClass('here');
+    };
+
     return {
         init: function () {
             createChart();
+            configuracionGeneral();
         }
     };
 })();

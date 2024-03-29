@@ -49,10 +49,15 @@ var KTTicket = (function () {
         });
     };
 
+    var configuracionGeneral = () => {
+        $('.link-en-proceso').addClass('active');
+    };
+
     return {
         init: function () {
             loadDatetable();
             configurarFiltros();
+            configuracionGeneral();
         }
     };
 })();
