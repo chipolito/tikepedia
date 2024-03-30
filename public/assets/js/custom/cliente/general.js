@@ -58,7 +58,7 @@ var KTCliente = (function () {
                 submitButton: new FormValidation.plugins.SubmitButton(),
                 bootstrap: new FormValidation.plugins.Bootstrap5({ 
                     rowSelector: '.fv-row', 
-                    eleInvalidClass: 'is-invalid', 
+                    eleInvalidClass: '', 
                     eleValidClass: ''
                 })
             }
@@ -388,6 +388,8 @@ var KTCliente = (function () {
         quillTicketNuevo.setContents([{insert:'\n'}]);
 
         $('.dropzone-remove-all')[0].click();
+
+        reglaFormNuevoTicket.resetForm();
 
         btnRegistraTicket.removeAttribute("data-kt-indicator");
         btnRegistraTicket.disabled = false;        
