@@ -145,7 +145,7 @@ var KTCliente = (function () {
 
             toastr.success('Ticket registrado y archivos almacenados correctamente');
 
-            formTicketReset();
+            KTDrawer.hideAll();
         });
 
         dropZoneNewTicket.on('removedfile', function (file) {
@@ -208,7 +208,7 @@ var KTCliente = (function () {
 
                             if( archivos == 0) {
                                 toastr.success( data.success );
-                                formTicketReset();
+                                KTDrawer.hideAll();
                             } else {
                                 $('.dropzone-upload')[0].click();
                             }
@@ -292,6 +292,13 @@ var KTCliente = (function () {
         validacionFormNuevoTicket();
 
         cargarDepartamentos();
+
+        let drawerEl    = document.querySelector("#kt_drawer_ticket_nuevo");
+        let drawer      = KTDrawer.getInstance(drawerEl);
+        drawer.on("kt.drawer.after.hidden", function() {
+            formTicketReset();
+        });
+
     };
 
     var cargarDepartamentos = () => {
@@ -383,9 +390,7 @@ var KTCliente = (function () {
         $('.dropzone-remove-all')[0].click();
 
         btnRegistraTicket.removeAttribute("data-kt-indicator");
-        btnRegistraTicket.disabled = false;
-
-        KTDrawer.hideAll();
+        btnRegistraTicket.disabled = false;        
     };
 
     return {
