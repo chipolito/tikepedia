@@ -31,7 +31,7 @@
 
         <!--begin::Actions-->
         <div class="d-flex align-self-center flex-center flex-shrink-0">
-            <a href="javascript:void(0);" class="btn btn-sm btn-dark ms-3 px-4 py-3 d-none d-sm-inline">
+            <a href="javascript:void(0);" class="btn btn-sm btn-dark ms-3 px-4 py-3 d-none d-sm-inline kt_drawer_ticket_nuevo_toggle">
                 <i class="ki-outline ki-plus-square fs-2"></i> <span>Registrar Ticket</span>
             </a>
 

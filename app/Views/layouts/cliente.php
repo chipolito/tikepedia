@@ -292,15 +292,25 @@
                                 </div>
                                 <!--end::Notificaciones-->
 
-                                <!--begin::Notificaciones-->
+                                <!--begin::Ayuda-->
                                 <div class="app-navbar-item ms-1 ms-lg-5">
                                     <!--begin::Menu wrapper-->
                                     <div class="btn btn-icon btn-custom btn-active-color-dark btn-color-gray-700 w-35px h-35px w-md-40px h-md-40px position-relative">
-                                        <i class="ki-outline ki-element-11 fs-1"></i>             
+                                        <i class="ki-outline ki-question fs-1"></i>             
                                     </div>
                                     <!--end::Menu wrapper-->
                                 </div>
-                                <!--end::Notificaciones-->
+                                <!--end::Ayuda-->
+
+                                <!--begin::Nuevo ticket-->
+                                <div class="app-navbar-item ms-1 ms-lg-5 d-lg-none kt_drawer_ticket_nuevo_toggle">
+                                    <!--begin::Menu wrapper-->
+                                    <div class="btn btn-icon btn-custom btn-active-color-dark btn-color-gray-700 w-35px h-35px w-md-40px h-md-40px position-relative">
+                                        <i class="ki-outline ki-message-add fs-1"></i>             
+                                    </div>
+                                    <!--end::Menu wrapper-->
+                                </div>
+                                <!--end::Nuevo ticket-->
 
                                 <!--begin::User menu-->
                                 <div class="app-navbar-item ms-3 ms-lg-5" id="kt_header_user_menu_toggle">
@@ -617,6 +627,156 @@
             <!--end::Page-->
         </div>
         <!--end::App-->
+
+        <!--begin::Drawer-->
+        <div
+            id="kt_drawer_ticket_nuevo"
+            class="bg-white"
+            data-kt-drawer="true"
+            data-kt-drawer-activate="true"
+            data-kt-drawer-toggle=".kt_drawer_ticket_nuevo_toggle"
+            data-kt-drawer-close="#kt_drawer_ticket_nuevo_close"
+            data-kt-drawer-overlay="true"
+            data-kt-drawer-permanent="true"
+            data-kt-drawer-width="{default:'100%', 'md': '600px'}"
+        >
+            <!--begin::Card-->
+            <div class="card rounded-0 w-100">
+                <!--begin::Card header-->
+                <div class="card-header pe-5">
+                    <!--begin::Title-->
+                    <div class="card-title">
+                        Nuevo Ticket
+                    </div>
+                    <!--end::Title-->
+
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-light-danger" id="kt_drawer_ticket_nuevo_close">
+                            <span>
+                                <i class="ki-outline ki-cross-circle fs-2"></i>
+                            </span>
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+
+                <!--begin::Card body-->
+                <div class="card-body hover-scroll-overlay-y">
+                    <form class="form" action="#" method="post" id="kt_ticket_nuevo_form">
+                        <div class="row g-5 mb-5">
+                            <div class="col-md-6">
+                                <label for="ticket_departamento" class="required form-label">Departamento</label>
+                                <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecciona una opción" id="ticket_departamento" name="ticket_departamento">
+                                    <option></option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="ticket_tema" class="required form-label">Tema de ayuda</label>
+                                <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecciona una opción" id="ticket_tema" name="ticket_tema">
+                                    <option></option>
+                                    <option value="1">Option 1</option>
+                                    <option value="2">Option 2</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="ticket_sunto" class="required form-label">Asunto</label>
+                                <input type="text" class="form-control form-control-solid" placeholder="Motivo del ticket" id="ticket_sunto" name="ticket_sunto" maxlength="100"/>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="ticket_detalle" class="required form-label">Detalle</label>
+                                <div id="ticket_detalle" name="ticket_detalle" style="height: auto !important;"></div>
+                            </div>
+                        </div>
+
+                        <!--begin::Input group-->
+                        <div class="form-group row">
+                            <!--begin::Label-->
+                            <label class="col-md-12 col-form-label text-lg-right" for="kt_dropzonejs_ticket_nuevo">Archivos de evidencia</label>
+                            <!--end::Label-->
+
+                            <!--begin::Col-->
+                            <div class="col-lg-12">
+                                <!--begin::Dropzone-->
+                                <div class="dropzone dropzone-queue mb-2" id="kt_dropzonejs_ticket_nuevo">
+                                    <!--begin::Controls-->
+                                    <div class="dropzone-panel mb-lg-0 mb-2">
+                                        <a class="dropzone-select btn btn-sm btn-primary me-2">Agregar archivo</a>
+                                        <a class="dropzone-upload btn btn-sm btn-light-primary me-2">Cargar todo</a>
+                                        <a class="dropzone-remove-all btn btn-sm btn-light-danger">Eliminar todo</a>
+                                    </div>
+                                    <!--end::Controls-->
+
+                                    <!--begin::Items-->
+                                    <div class="dropzone-items wm-200px">
+                                        <div class="dropzone-item" style="display:none">
+                                            <!--begin::File-->
+                                            <div class="dropzone-file">
+                                                <div class="dropzone-filename">
+                                                    <span data-dz-name>some_image_file_name.jpg</span>
+                                                    <strong>(<span data-dz-size>340kb</span>)</strong>
+                                                </div>
+
+                                                <div class="dropzone-error" data-dz-errormessage></div>
+                                            </div>
+                                            <!--end::File-->
+
+                                            <!--begin::Progress-->
+                                            <div class="dropzone-progress">
+                                                <div class="progress">
+                                                    <div
+                                                        class="progress-bar bg-primary"
+                                                        role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end::Progress-->
+
+                                            <!--begin::Toolbar-->
+                                            <div class="dropzone-toolbar">
+                                                <!-- <span class="dropzone-start"><i class="bi bi-play-fill fs-3"></i></span> -->
+                                                <span class="dropzone-cancel" data-dz-remove style="display: none;"><i class="bi bi-x fs-3"></i></span>
+                                                <span class="dropzone-delete" data-dz-remove><i class="bi bi-x fs-1"></i></span>
+                                            </div>
+                                            <!--end::Toolbar-->
+                                        </div>
+                                    </div>
+                                    <!--end::Items-->
+                                </div>
+                                <!--end::Dropzone-->
+
+                                <!--begin::Hint-->
+                                <span class="form-text text-muted">
+                                    Haga clic para cargar los archivos de evidencia, máximo 5 archivos y 2MB por archivo.
+                                </span>
+                                <!--end::Hint-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                    </form>
+                </div>
+                <!--end::Card body-->
+
+                <!-- begin::Card footer -->
+                <div class="card-footer py-3">
+                    <div class="d-grid gap-2 col-md-8 mx-auto">
+                        <button class="btn btn-dark ">Registrar Ticket</button>
+                    </div>
+                </div>
+                <!-- end::Card footer -->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Drawer-->
 
         <!--begin::Scrolltop-->
         <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
