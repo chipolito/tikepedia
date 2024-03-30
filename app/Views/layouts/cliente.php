@@ -672,8 +672,6 @@
                                 <label for="ticket_departamento" class="required form-label">Departamento</label>
                                 <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecciona una opción" id="ticket_departamento" name="ticket_departamento">
                                     <option></option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
                                 </select>
                             </div>
 
@@ -681,8 +679,6 @@
                                 <label for="ticket_tema" class="required form-label">Tema de ayuda</label>
                                 <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecciona una opción" id="ticket_tema" name="ticket_tema">
                                     <option></option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
                                 </select>
                             </div>
 

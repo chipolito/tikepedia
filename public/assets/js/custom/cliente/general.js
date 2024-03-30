@@ -17,6 +17,10 @@ var KTCliente = (function () {
         infoEmpty: 'No se encontraron registros'
     };
 
+    var languageSelect2         = {
+        noResults: function() { return 'Sin registros'; }
+    }
+
     var dropZoneNewTicket;
 
     var idTicketNuevo           = 0;
@@ -72,7 +76,7 @@ var KTCliente = (function () {
 
         dropZoneNewTicket = new Dropzone(id, {
             url: `${baseUrl}api/ticket/putevidencia`,
-            paramName: 'evidencia[]',
+            paramName: 'evidencia',
             maxFiles: 5,
             maxFilesize: 2,
             previewTemplate: previewTemplate,
@@ -80,7 +84,9 @@ var KTCliente = (function () {
             previewsContainer: `${id} .dropzone-items`,
             clickable: `${id} .dropzone-select`,
             dictFileTooBig: 'El archivo es demasiado grande ({{filesize}}MB). Maximo permitido: {{maxFilesize}}MB.',
-            dictMaxFilesExceeded: 'Solo puedes agregar un máximo de {{maxFiles}} archivos.'
+            dictMaxFilesExceeded: 'Solo puedes agregar un máximo de {{maxFiles}} archivos.',
+            parallelUploads:5,
+            uploadMultiple:true
         });
 
         dropZoneNewTicket.on('addedfile', function (file) {
@@ -102,7 +108,6 @@ var KTCliente = (function () {
 
         dropZoneNewTicket.on('sending', function (file, xhr, formData) {
             formData.append('ticket_id', idTicketNuevo);
-            console.log(formData)
         });
 
         // dropZoneNewTicket.on('complete', function (progress) {
@@ -118,6 +123,11 @@ var KTCliente = (function () {
         // });
 
         dropzone.querySelector('.dropzone-upload').addEventListener('click', function () {
+            const deleteIcons = dropzone.querySelectorAll('.dropzone-delete');
+            deleteIcons.forEach(deleteIcon => {
+                deleteIcon.style.display = 'none';
+            });
+
             dropZoneNewTicket.enqueueFiles(dropZoneNewTicket.getFilesWithStatus(Dropzone.ADDED));
         });
 
@@ -132,6 +142,10 @@ var KTCliente = (function () {
             uploadIcons.forEach(uploadIcon => {
                 uploadIcon.style.display = 'none';
             });
+
+            toastr.success('Ticket registrado y archivos almacenados correctamente');
+
+            formTicketReset();
         });
 
         dropZoneNewTicket.on('removedfile', function (file) {
@@ -155,15 +169,63 @@ var KTCliente = (function () {
             reglaFormNuevoTicket.validate().then((status) => {
 
                 if (status == 'Valid') {
+                    let arrayDetalle    = quillTicketNuevo.getContents().ops;
+
+                    if( arrayDetalle[0].insert.length == 1){
+                        toastr.error('Proporcione los detalles del ticket');
+                        return false;
+                    }
+
                     btnRegistraTicket.setAttribute("data-kt-indicator", "on")
                     btnRegistraTicket.disabled = true;
-                    
-                    let formElement = new FormData( formNuevoTicket ),
-                        formData 	= Object.fromEntries(formElement.entries());
-                        
-                        // console.log( 'quill.getContents().ops', quillTicketNuevo.getContents().ops);
 
-                        console.log( 'quill.getContents().ops', quillTicketNuevo.getSemanticHTML(0, 10) );
+                    let archivos        = dropZoneNewTicket.files.length,
+                        temaConfig      = $('#ticket_tema').select2('data')[0],
+                        foioTicket      = 'T-APT-';
+
+                    let formElement = new FormData( formNuevoTicket );
+
+                    formElement.append('ticket_detalle', JSON.stringify(arrayDetalle));
+                    formElement.append('ticket_prioridad', temaConfig.prioridad);
+                    formElement.append('ticket_sla', temaConfig.tema_sla);
+                    formElement.append('ticket_sla_respuesta', temaConfig.tema_sla_respuesta);
+                    formElement.append('ticket_folio', foioTicket);
+                    formElement.append('ticket_estatus', 1);
+                    formElement.append('ticket_calificacion', 0);
+                    formElement.append('ticket_cerrado', 0);
+                    formElement.append('ticket_reabierto', 0);
+
+                    let formData = Object.fromEntries(formElement.entries());
+                    
+                    axios.post(`${baseUrl}api/ticket/create`, formData)
+                    .then(async function (response) {
+                        if(response.status == 201) {
+                            let data = response.data.messages;
+                            
+                            idTicketNuevo = data.ticket_id;
+
+                            await axios.put(`${baseUrl}api/ticket/update/${data.ticket_id}`, {ticket_folio: `${foioTicket}${ String(data.ticket_id).padStart(4, '0') }`});
+
+                            if( archivos == 0) {
+                                toastr.success( data.success );
+                                formTicketReset();
+                            } else {
+                                $('.dropzone-upload')[0].click();
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+                        if (error.response) {
+                            toastr.error(error.response.data.messages.error, 'Verifique sus datos');
+                        } else if (error.request) {
+                            toastr.error('No se recibió respuesta del servidor, consulte con el administrador de red.');
+                        } else {
+                            toastr.error('Error al procesar la petición, recargue la página (F5)');
+                        }
+
+                        btnRegistraTicket.removeAttribute("data-kt-indicator");
+                        btnRegistraTicket.disabled = false;
+                    });
                 }
 
             });
@@ -228,6 +290,102 @@ var KTCliente = (function () {
         configureDropzone();
 
         validacionFormNuevoTicket();
+
+        cargarDepartamentos();
+    };
+
+    var cargarDepartamentos = () => {
+        axios.get(`${baseUrl}api/departamento`)
+        .then(function (response) {
+            if(response.status == 200) {
+                let departamentos = response.data.messages.data,
+                    data = [];
+                
+                departamentos.forEach((departamento) => {
+                    data.push({ 
+                        id: departamento.departamento_id,
+                        text: departamento.departamento_nombre
+                    });
+                });
+
+                $('#ticket_departamento').select2({
+                    data: data,
+                    language: languageSelect2
+                });
+            }
+        })
+        .catch(function (error) {
+            if (error.response) {
+                toastr.error('Error de respuesta, recargue la página (F5)');
+            } else if (error.request) {
+                toastr.error('Error de petición, recargue la página (F5)');
+            } else {
+                toastr.error('Error al procesar la petición, recargue la página (F5)');
+            }
+        })
+        .finally(() => {
+            $('#ticket_departamento').on('select2:select', function (e) {
+                var data = e.params.data;
+
+                cargarTemasAyuda(data.id);
+            });
+        });
+    };
+
+    var cargarTemasAyuda = (departamentoId) => {
+        $('#ticket_tema').select2('destroy');
+
+        axios.get(`${baseUrl}api/tema/${departamentoId}`)
+        .then(function (response) {
+            if(response.status == 200) {
+                let temas = response.data.messages.data,
+                    data = [];
+                
+                temas.forEach((tema) => {
+                    data.push({ 
+                        id: tema.tema_id,
+                        text: tema.tema_nombre,
+                        prioridad: tema.tema_prioridad,
+                        tema_sla: tema.tema_sla,
+                        tema_sla_respuesta: tema.tema_sla_respuesta
+                    });
+                });
+
+                $('#ticket_tema').select2({
+                    data: data,
+                    language: languageSelect2
+                });
+            }
+        })
+        .catch(function (error) {
+            $('#ticket_tema')
+            .html('<option></option>')
+            .select2({ language: languageSelect2 });
+
+            $('#ticket_tema').val(null).trigger('change');
+        });
+    };
+
+    var formTicketReset = () => {
+        $('#ticket_departamento').val(null).trigger('change');
+        
+        $('#ticket_tema').select2('destroy');
+        $('#ticket_tema')
+            .html('<option></option>')
+            .select2({ language: languageSelect2 });
+
+        $('#ticket_tema').val(null).trigger('change');
+
+        $('#ticket_sunto').val('');
+
+        quillTicketNuevo.setContents([{insert:'\n'}]);
+
+        $('.dropzone-remove-all')[0].click();
+
+        btnRegistraTicket.removeAttribute("data-kt-indicator");
+        btnRegistraTicket.disabled = false;
+
+        KTDrawer.hideAll();
     };
 
     return {
@@ -235,7 +393,8 @@ var KTCliente = (function () {
             configuraciones();
         },
         languageDataTable,
-        quillToolbarOptions
+        quillToolbarOptions,
+        languageSelect2
     };
 })();
 

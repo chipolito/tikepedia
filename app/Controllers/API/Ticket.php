@@ -114,6 +114,7 @@ class Ticket extends ResourceController
     {
         try {
             $ticket = $this->request->getJSON();
+            $ticket->ticket_usuario_registra = session()->get('usuario_id');
 
             if( $this->model->insert($ticket) ):
                 $response = [

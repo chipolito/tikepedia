@@ -153,7 +153,10 @@ class Usuario extends ResourceController
 
             if(!$verify) return $this->failUnauthorized('La contraseña que ingresó no es correcta.');
 
+            $organizacionModel = model(\App\Models\OrganizacionModel::class);
+
             $usuario['isLoggedIn'] = TRUE;
+            $usuario['usuario_organizacion_detalle'] = $organizacionModel->where('organizacion_id', $usuario['usuario_organizacion'] )->first();
 
             session()->set($usuario);
 

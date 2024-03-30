@@ -12,9 +12,9 @@ class Temaayuda extends ResourceController
         $this->model = $this->setModel(new TemaayudaModel());
     }
 
-    public function read($tema_id = null)
+    public function read($departamento_id = null)
     {
-        if($tema_id == null):
+        if($departamento_id == null):
             $response = [
                 'status'   => 200,
                 'error'    => null,
@@ -26,16 +26,16 @@ class Temaayuda extends ResourceController
 
             return $this->respond( $response );
         else:
-            $tema = $this->model->find($tema_id);
+            $temas = $this->model->where('tema_departamento', $departamento_id)->findAll();
 
-            if(!$tema) return $this->failNotFound('No se encontró información del tema con el id proporcionado (' . $tema_id . ')');
+            if(!$temas) return $this->failNotFound('No se encontró información del tema con el id proporcionado (' . $departamento_id . ')');
 
             $response = [
                 'status'   => 200,
                 'error'    => null,
                 'messages' => [
                     'success'   => 'Información del tema cargada correctamente.',
-                    'data'      => $tema
+                    'data'      => $temas
                 ]
             ];
 
