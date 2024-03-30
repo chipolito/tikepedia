@@ -666,9 +666,9 @@
 
                 <!--begin::Card body-->
                 <div class="card-body hover-scroll-overlay-y">
-                    <form class="form" action="#" method="post" id="kt_ticket_nuevo_form">
+                    <form class="form" novalidate="novalidate" action="#" method="post" id="kt_ticket_nuevo_form">
                         <div class="row g-5 mb-5">
-                            <div class="col-md-6">
+                            <div class="col-md-6 fv-row">
                                 <label for="ticket_departamento" class="required form-label">Departamento</label>
                                 <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecciona una opción" id="ticket_departamento" name="ticket_departamento">
                                     <option></option>
@@ -677,7 +677,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 fv-row">
                                 <label for="ticket_tema" class="required form-label">Tema de ayuda</label>
                                 <select class="form-select form-select-solid" data-control="select2" data-placeholder="Selecciona una opción" id="ticket_tema" name="ticket_tema">
                                     <option></option>
@@ -686,90 +686,103 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-12 fv-row">
                                 <label for="ticket_sunto" class="required form-label">Asunto</label>
                                 <input type="text" class="form-control form-control-solid" placeholder="Motivo del ticket" id="ticket_sunto" name="ticket_sunto" maxlength="100"/>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-12 fv-row">
                                 <label for="ticket_detalle" class="required form-label">Detalle</label>
                                 <div id="ticket_detalle" name="ticket_detalle" style="height: auto !important;"></div>
                             </div>
                         </div>
-
-                        <!--begin::Input group-->
-                        <div class="form-group row">
-                            <!--begin::Label-->
-                            <label class="col-md-12 col-form-label text-lg-right" for="kt_dropzonejs_ticket_nuevo">Archivos de evidencia</label>
-                            <!--end::Label-->
-
-                            <!--begin::Col-->
-                            <div class="col-lg-12">
-                                <!--begin::Dropzone-->
-                                <div class="dropzone dropzone-queue mb-2" id="kt_dropzonejs_ticket_nuevo">
-                                    <!--begin::Controls-->
-                                    <div class="dropzone-panel mb-lg-0 mb-2">
-                                        <a class="dropzone-select btn btn-sm btn-primary me-2">Agregar archivo</a>
-                                        <a class="dropzone-upload btn btn-sm btn-light-primary me-2">Cargar todo</a>
-                                        <a class="dropzone-remove-all btn btn-sm btn-light-danger">Eliminar todo</a>
-                                    </div>
-                                    <!--end::Controls-->
-
-                                    <!--begin::Items-->
-                                    <div class="dropzone-items wm-200px">
-                                        <div class="dropzone-item" style="display:none">
-                                            <!--begin::File-->
-                                            <div class="dropzone-file">
-                                                <div class="dropzone-filename">
-                                                    <span data-dz-name>some_image_file_name.jpg</span>
-                                                    <strong>(<span data-dz-size>340kb</span>)</strong>
-                                                </div>
-
-                                                <div class="dropzone-error" data-dz-errormessage></div>
-                                            </div>
-                                            <!--end::File-->
-
-                                            <!--begin::Progress-->
-                                            <div class="dropzone-progress">
-                                                <div class="progress">
-                                                    <div
-                                                        class="progress-bar bg-primary"
-                                                        role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--end::Progress-->
-
-                                            <!--begin::Toolbar-->
-                                            <div class="dropzone-toolbar">
-                                                <!-- <span class="dropzone-start"><i class="bi bi-play-fill fs-3"></i></span> -->
-                                                <span class="dropzone-cancel" data-dz-remove style="display: none;"><i class="bi bi-x fs-3"></i></span>
-                                                <span class="dropzone-delete" data-dz-remove><i class="bi bi-x fs-1"></i></span>
-                                            </div>
-                                            <!--end::Toolbar-->
-                                        </div>
-                                    </div>
-                                    <!--end::Items-->
-                                </div>
-                                <!--end::Dropzone-->
-
-                                <!--begin::Hint-->
-                                <span class="form-text text-muted">
-                                    Haga clic para cargar los archivos de evidencia, máximo 5 archivos y 2MB por archivo.
-                                </span>
-                                <!--end::Hint-->
-                            </div>
-                            <!--end::Col-->
-                        </div>
-                        <!--end::Input group-->
                     </form>
+
+                    <!--begin::Input group-->
+                    <div class="form-group row">
+                        <!--begin::Label-->
+                        <label class="col-md-12 col-form-label text-lg-right" for="kt_dropzonejs_ticket_nuevo">Archivos de evidencia</label>
+                        <!--end::Label-->
+
+                        <!--begin::Col-->
+                        <div class="col-lg-12">
+                            <!--begin::Dropzone-->
+                            <div class="dropzone dropzone-queue mb-2" id="kt_dropzonejs_ticket_nuevo">
+                                <!--begin::Controls-->
+                                <div class="dropzone-panel mb-lg-0 mb-2">
+                                    <a class="dropzone-select btn btn-sm btn-primary me-2">Agregar archivo</a>
+                                    <a class="dropzone-upload btn btn-sm btn-light-primary me-2">Cargar todo</a>
+                                    <a class="dropzone-remove-all btn btn-sm btn-light-danger">Eliminar todo</a>
+                                </div>
+                                <!--end::Controls-->
+
+                                <!--begin::Items-->
+                                <div class="dropzone-items wm-200px">
+                                    <div class="dropzone-item" style="display:none">
+                                        <!--begin::File-->
+                                        <div class="dropzone-file">
+                                            <div class="dropzone-filename">
+                                                <span data-dz-name>some_image_file_name.jpg</span>
+                                                <strong>(<span data-dz-size>340kb</span>)</strong>
+                                            </div>
+
+                                            <div class="dropzone-error" data-dz-errormessage></div>
+                                        </div>
+                                        <!--end::File-->
+
+                                        <!--begin::Progress-->
+                                        <div class="dropzone-progress">
+                                            <div class="progress">
+                                                <div
+                                                    class="progress-bar bg-primary"
+                                                    role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-dz-uploadprogress>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Progress-->
+
+                                        <!--begin::Toolbar-->
+                                        <div class="dropzone-toolbar">
+                                            <!-- <span class="dropzone-start"><i class="bi bi-play-fill fs-3"></i></span> -->
+                                            <span class="dropzone-cancel" data-dz-remove style="display: none;"><i class="bi bi-x fs-3"></i></span>
+                                            <span class="dropzone-delete" data-dz-remove><i class="bi bi-x fs-1"></i></span>
+                                        </div>
+                                        <!--end::Toolbar-->
+                                    </div>
+                                </div>
+                                <!--end::Items-->
+                            </div>
+                            <!--end::Dropzone-->
+
+                            <!--begin::Hint-->
+                            <span class="form-text text-muted">
+                                Haga clic para cargar los archivos de evidencia, máximo 5 archivos y 2MB por archivo.
+                            </span>
+                            <!--end::Hint-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Input group-->
                 </div>
                 <!--end::Card body-->
 
                 <!-- begin::Card footer -->
                 <div class="card-footer py-3">
-                    <div class="d-grid gap-2 col-md-8 mx-auto">
-                        <button class="btn btn-dark ">Registrar Ticket</button>
+                    <div class="d-grid col-md-8 mx-auto">
+                        <button type="button" id="kt_registra_ticket" class="btn btn-dark">
+                            <!--begin::Indicator label-->
+                            <span class="indicator-label">
+                                Registrar Ticket
+                            </span>
+                            <!--end::Indicator label-->
+
+                            <!--begin::Indicator progress-->
+                            <span class="indicator-progress">
+                                Espere por favor...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                            <!--end::Indicator progress-->
+                        </button>
                     </div>
                 </div>
                 <!-- end::Card footer -->

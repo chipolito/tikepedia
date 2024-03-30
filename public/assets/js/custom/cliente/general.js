@@ -1,25 +1,65 @@
 'use strict';
 
 var KTCliente = (function () {
-    var btnLogout = document.querySelector("#btnCerrarSession");
+    var btnLogout               = document.querySelector("#btnCerrarSession");
 
     var quillTicketNuevo;
 
-    var quillToolbarOptions = [
+    var quillToolbarOptions     = [
         [{ 'size': ['small', false, 'large', 'huge'] }],
         [{ 'font': [] }],
         ['bold', 'italic', 'underline', 'strike', 'blockquote'],
         [{ 'list': 'ordered'}, { 'list': 'bullet' }]
     ];
 
-    var languageDataTable = {
+    var languageDataTable       = {
         emptyTable: 'No hay registros para mostrar',
         infoEmpty: 'No se encontraron registros'
     };
 
     var dropZoneNewTicket;
 
-    var idTicketNuevo = 0;
+    var idTicketNuevo           = 0;
+
+    var btnRegistraTicket       = document.querySelector("#kt_registra_ticket"),
+        formNuevoTicket         = document.querySelector("#kt_ticket_nuevo_form");
+
+    var reglaFormNuevoTicket    = FormValidation.formValidation(
+        formNuevoTicket, {
+            fields: {
+                ticket_departamento: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El departamento es requerido.'
+                        }
+                    }
+                },
+                ticket_tema: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El tema de ayuda es requerido.'
+                        }
+                    }
+                },
+                ticket_sunto: {
+                    validators: {
+                        notEmpty: {
+                            message: 'El asunto del tema es requerido.'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                submitButton: new FormValidation.plugins.SubmitButton(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({ 
+                    rowSelector: '.fv-row', 
+                    eleInvalidClass: 'is-invalid', 
+                    eleValidClass: ''
+                })
+            }
+        }
+    );
 
     var configureDropzone = () => {
         const id = '#kt_dropzonejs_ticket_nuevo';
@@ -108,6 +148,28 @@ var KTCliente = (function () {
         });
     };
 
+    var validacionFormNuevoTicket = () => {
+        KTUtil.addEvent(btnRegistraTicket, 'click', function(e) {
+            e.preventDefault();
+
+            reglaFormNuevoTicket.validate().then((status) => {
+
+                if (status == 'Valid') {
+                    btnRegistraTicket.setAttribute("data-kt-indicator", "on")
+                    btnRegistraTicket.disabled = true;
+                    
+                    let formElement = new FormData( formNuevoTicket ),
+                        formData 	= Object.fromEntries(formElement.entries());
+                        
+                        // console.log( 'quill.getContents().ops', quillTicketNuevo.getContents().ops);
+
+                        console.log( 'quill.getContents().ops', quillTicketNuevo.getSemanticHTML(0, 10) );
+                }
+
+            });
+        });
+    };
+
     var configuraciones = () => {
         toastr.options = {
             "closeButton": false,
@@ -164,6 +226,8 @@ var KTCliente = (function () {
         });
 
         configureDropzone();
+
+        validacionFormNuevoTicket();
     };
 
     return {
