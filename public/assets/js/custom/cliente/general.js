@@ -14,7 +14,9 @@ var KTCliente = (function () {
 
     var languageDataTable       = {
         emptyTable: 'No hay registros para mostrar',
-        infoEmpty: 'No se encontraron registros'
+        infoEmpty: 'No se encontraron registros',
+        loadingRecords: 'Cargando información',
+        zeroRecords: 'No se encontraron registros coincidentes'
     };
 
     var languageSelect2         = {

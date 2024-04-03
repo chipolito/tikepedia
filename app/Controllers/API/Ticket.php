@@ -12,7 +12,7 @@ class Ticket extends ResourceController
         $this->model = $this->setModel(new TicketModel());
     }
 
-    public function read($ticket_id = null)
+    public function read($condicion = null)
     {
         $db         = \Config\Database::connect();
 
@@ -74,9 +74,8 @@ class Ticket extends ResourceController
         $builder->join('ticket_estatus', 'ticket_estatus.estatus_id = ticket.ticket_estatus', 'inner');
         $builder->join('sla as sl', 'sl.sla_id = ticket.ticket_sla_respuesta', 'inner');
 
-        $builder->where('ticket.ticket_estatus <', 5);
-
-        if($ticket_id == null):
+        if($condicion == null):
+            $builder->where('ticket.ticket_estatus <', 5);
             $query      = $builder->get();
 
             $response = [
@@ -90,11 +89,26 @@ class Ticket extends ResourceController
 
             return $this->respond( $response );
         else:
-            $ticket = $this->model->find($ticket_id);
+            // $ticket = $this->model->find($ticket_id);
+            // if(!$ticket) return $this->failNotFound('No se encontró información del ticket con el id proporcionado (' . $ticket_id . ')');
 
-            if(!$ticket) return $this->failNotFound('No se encontró información del ticket con el id proporcionado (' . $ticket_id . ')');
+            /**
+             *[1] =>    Mostrar los tickets nuevos - Son los que se han registrado recientemente
+             *          no tienen asignado un agente y esta en el tiempo limite para dar una respuesta segun SLA
+            **/
 
-            $builder->where('ticket.ticket_id', $ticket_id);
+            $builder->where('ticket.ticket_usuario_registra', session()->get('usuario_id'));
+
+            switch ($condicion) {
+                case 1:
+                    $builder->where('ticket.ticket_estatus', 1);
+                    $builder->where('(ticket.ticket_created_at + INTERVAL sl.sla_periodo_hora HOUR + INTERVAL sl.sla_periodo_minuto MINUTE) > CURRENT_TIMESTAMP()');
+                    break;
+                default:
+                    $builder->where('ticket.ticket_estatus', 1);
+                    break;
+            }
+
             $query = $builder->get();
 
             $response = [
@@ -102,7 +116,7 @@ class Ticket extends ResourceController
                 'error'    => null,
                 'messages' => [
                     'success'   => 'Información del ticket cargada correctamente.',
-                    'data'      => $query->getResultArray()[0]
+                    'data'      => $query->getResultArray()
                 ]
             ];
 
