@@ -108,9 +108,7 @@ var KTTicket = (function () {
                     }
                 }
             ],
-            order: [
-                [2, 'desc']
-            ],
+            order: [],
             initComplete: function () {
                 configurarFiltros();
             }

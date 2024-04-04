@@ -865,7 +865,7 @@
                                 <div class="rounded py-3 px-5 bg-light-secondary">
                                     <div class="d-flex">
                                         <p class="form-label mb-0 me-auto">Asunto</p>
-                                        <p class="form-label mb-0 fs-7" id="lbl-ticket-detalle-fecha">Creacion</p>
+                                        <p class="form-label mb-0 fs-7 text-end" id="lbl-ticket-detalle-fecha">Creacion</p>
                                     </div>
                                     <span id="lbl-ticket-detalle-asunto"></span>
                                     <div id="ticket_detalle_detalle" style="height: auto !important;"></div>

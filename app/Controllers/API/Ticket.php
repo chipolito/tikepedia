@@ -104,6 +104,13 @@ class Ticket extends ResourceController
                     $builder->where('ticket.ticket_estatus', 1);
                     $builder->where('ticket.ticket_agente', null);
                     $builder->where('(ticket.ticket_created_at + INTERVAL sl.sla_periodo_hora HOUR + INTERVAL sl.sla_periodo_minuto MINUTE) > CURRENT_TIMESTAMP()');
+                    $builder->orderBy('ticket.ticket_created_at', 'desc');
+                    break;
+                case 2:
+                    $builder->where('ticket.ticket_estatus', 1);
+                    $builder->where('ticket.ticket_agente', null);
+                    $builder->where('(ticket.ticket_created_at + INTERVAL sl.sla_periodo_hora HOUR + INTERVAL sl.sla_periodo_minuto MINUTE) < CURRENT_TIMESTAMP()');
+                    $builder->orderBy('ticket.ticket_created_at', 'desc');
                     break;
                 default:
                     $builder->where('ticket.ticket_estatus', 1);
