@@ -787,6 +787,111 @@
         </div>
         <!--end::Drawer-->
 
+        <!--begin::Drawer-->
+        <div
+            id="kt_drawer_ticket_detalle"
+            class="bg-white"
+            data-kt-drawer="true"
+            data-kt-drawer-activate="true"
+            data-kt-drawer-toggle=".kt_drawer_ticket_detalle_toggle"
+            data-kt-drawer-close="#kt_drawer_ticket_detalle_close"
+            data-kt-drawer-overlay="true"
+            data-kt-drawer-permanent="true"
+            data-kt-drawer-width="{default:'100%', 'md': '600px'}"
+        >
+            <!--begin::Card-->
+            <div class="card rounded-0 w-100">
+                <!--begin::Card header-->
+                <div class="card-header pe-5">
+                    <!--begin::Title-->
+                    <div class="card-title">
+                        Detalles del Ticket <span class="ms-2" id="lbl-ticket-detalle-folio">#0000</span>
+                    </div>
+                    <!--end::Title-->
+
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <!--begin::Close-->
+                        <div class="btn btn-sm btn-icon btn-active-light-danger" id="kt_drawer_ticket_detalle_close">
+                            <span>
+                                <i class="ki-outline ki-cross-circle fs-2"></i>
+                            </span>
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+
+                <!--begin::Card body-->
+                <div class="card-body hover-scroll-overlay-y">
+                    <form class="form" novalidate="novalidate" action="#" method="post" id="kt_ticket_detalle_form">
+                        <div class="row g-5 mb-0">
+                            <div class="col-md-6 fv-row">
+                                <div class="rounded py-3 px-5 bg-light-secondary">
+                                    <p class="form-label mb-0">Departamento</p>
+                                    <span id="lbl-ticket-detalle-departamento"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 fv-row">
+                                <div class="rounded py-3 px-5 bg-light-secondary">
+                                    <p class="form-label mb-0">Tema de ayuda</p>
+                                    <span id="lbl-ticket-detalle-tema-ayuda"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 fv-row">
+                                <div class="rounded py-3 px-5 bg-light-secondary" id="lbl-ticket-detalle-prioridad">
+                                    <div class="position-relative ps-6">
+                                        <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 sub-bg-color"></div>
+                                        <a href="javascript:void(0);" class="mb-1 form-label sub-text">Prioridad</a>
+                                        <div class="fs-7">El agente reevaluará este dato</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 fv-row">
+                                <div class="rounded py-3 px-5 bg-light-secondary">
+                                    <div class="position-relative ps-6">
+                                        <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-success"></div>
+                                        <a href="javascript:void(0);" class="mb-1 form-label">Tiempo de espera</a>
+                                        <div id="lbl-ticket-detalle-sla-espera">-</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 fv-row">
+                                <div class="rounded py-3 px-5 bg-light-secondary">
+                                    <div class="d-flex">
+                                        <p class="form-label mb-0 me-auto">Asunto</p>
+                                        <p class="form-label mb-0 fs-7" id="lbl-ticket-detalle-fecha">Creacion</p>
+                                    </div>
+                                    <span id="lbl-ticket-detalle-asunto"></span>
+                                    <div id="ticket_detalle_detalle" style="height: auto !important;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!--begin::Input group-->
+                    <div class="form-group row d-none" id="seccion-ticket-detalle-evidencia">
+                        <!--begin::Label-->
+                        <label class="col-md-12 col-form-label text-lg-right">Archivos de evidencia</label>
+                        <!--end::Label-->
+
+                        <!--begin::Col-->
+                        <div class="col-lg-12" id="contenedor-ticket-detalle-evidencia"></div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Input group-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Drawer-->
+
         <!--begin::Scrolltop-->
         <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
             <i class="ki-outline ki-arrow-up"></i>

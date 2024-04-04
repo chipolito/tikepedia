@@ -1,7 +1,7 @@
 'use strict';
 
 var KTCliente = (function () {
-    var btnLogout               = document.querySelector("#btnCerrarSession");
+    var btnLogout               = document.querySelector('#btnCerrarSession');
 
     var quillTicketNuevo;
 
@@ -27,8 +27,8 @@ var KTCliente = (function () {
 
     var idTicketNuevo           = 0;
 
-    var btnRegistraTicket       = document.querySelector("#kt_registra_ticket"),
-        formNuevoTicket         = document.querySelector("#kt_ticket_nuevo_form");
+    var btnRegistraTicket       = document.querySelector('#kt_registra_ticket'),
+        formNuevoTicket         = document.querySelector('#kt_ticket_nuevo_form');
 
     var reglaFormNuevoTicket    = FormValidation.formValidation(
         formNuevoTicket, {
@@ -295,12 +295,11 @@ var KTCliente = (function () {
 
         cargarDepartamentos();
 
-        let drawerEl    = document.querySelector("#kt_drawer_ticket_nuevo");
+        let drawerEl    = document.querySelector('#kt_drawer_ticket_nuevo');
         let drawer      = KTDrawer.getInstance(drawerEl);
-        drawer.on("kt.drawer.after.hidden", function() {
+        drawer.on('kt.drawer.after.hidden', function() {
             formTicketReset();
         });
-
     };
 
     var cargarDepartamentos = () => {

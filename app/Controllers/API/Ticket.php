@@ -102,6 +102,7 @@ class Ticket extends ResourceController
             switch ($condicion) {
                 case 1:
                     $builder->where('ticket.ticket_estatus', 1);
+                    $builder->where('ticket.ticket_agente', null);
                     $builder->where('(ticket.ticket_created_at + INTERVAL sl.sla_periodo_hora HOUR + INTERVAL sl.sla_periodo_minuto MINUTE) > CURRENT_TIMESTAMP()');
                     break;
                 default:
