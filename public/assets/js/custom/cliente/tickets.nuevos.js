@@ -55,12 +55,10 @@ var KTTicket = (function () {
                 {
                     target: 0,
                     render: (data, type, row) => {
-                        let prioridadDetalle = JSON.parse( row.ticket_prioridad_detalle );
-
                         return `
                             <div class="d-flex align-items-center">
                                 <!--begin::Bullet-->
-                                <span class="bullet bullet-vertical h-40px me-2" style="background-color: ${prioridadDetalle.prioridad_color}"></span>
+                                <span class="bullet bullet-vertical h-40px me-2 bg-success"></span>
                                 <!--end::Bullet-->
 
                                 <!--begin::Description-->
@@ -96,9 +94,15 @@ var KTTicket = (function () {
                             slaTiempo           = JSON.parse( row.ticket_sla_respuesta_detalle );
 
                         return `
-                            <div class="d-flex flex-column">
-                                <span>${prioridadDetalle.prioridad_nombre}</span>
-                                <span class="fs-7">Tiempo espera: ${slaTiempo.sla_periodo_hora < 10 ? '0' + slaTiempo.sla_periodo_hora : slaTiempo.sla_periodo_hora}:${slaTiempo.sla_periodo_minuto < 10 ? '0' + slaTiempo.sla_periodo_minuto : slaTiempo.sla_periodo_minuto} Hrs</span>
+                            <div class="position-relative ps-3">
+                                <!--begin::Bullet-->
+                                <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2" style="background-color: ${prioridadDetalle.prioridad_color}"></div>
+                                <!--end::Bullet-->
+
+                                <!--begin::Description-->
+                                <div class="">${prioridadDetalle.prioridad_nombre}</div>
+                                <div class="fs-7">Tiempo espera: ${slaTiempo.sla_periodo_hora < 10 ? '0' + slaTiempo.sla_periodo_hora : slaTiempo.sla_periodo_hora}:${slaTiempo.sla_periodo_minuto < 10 ? '0' + slaTiempo.sla_periodo_minuto : slaTiempo.sla_periodo_minuto} Hrs</div>
+                                <!--end::Description-->
                             </div>
                         `;
                     }

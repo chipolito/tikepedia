@@ -842,21 +842,21 @@
                             </div>
 
                             <div class="col-md-6 fv-row">
-                                <div class="rounded py-3 px-5 bg-light-secondary" id="lbl-ticket-detalle-prioridad">
-                                    <div class="position-relative ps-6">
-                                        <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 sub-bg-color"></div>
-                                        <a href="javascript:void(0);" class="mb-1 form-label sub-text">Prioridad</a>
-                                        <div class="fs-7">El agente reevaluará este dato</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 fv-row">
                                 <div class="rounded py-3 px-5 bg-light-secondary">
                                     <div class="position-relative ps-6">
                                         <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-success"></div>
                                         <a href="javascript:void(0);" class="mb-1 form-label">Tiempo de espera</a>
                                         <div id="lbl-ticket-detalle-sla-espera">-</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 fv-row">
+                                <div class="rounded py-3 px-5 bg-light-secondary" id="lbl-ticket-detalle-prioridad">
+                                    <div class="position-relative ps-6">
+                                        <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 sub-bg-color"></div>
+                                        <a href="javascript:void(0);" class="mb-1 form-label sub-text">Prioridad</a>
+                                        <div class="fs-7">El agente reevaluará este dato</div>
                                     </div>
                                 </div>
                             </div>
