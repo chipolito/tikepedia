@@ -134,6 +134,7 @@
                         <th class="min-w-175px">Asunto</th>
                         <th class="min-w-100px">Registró</th>
                         <th class="min-w-100px">Prioridad</th>
+                        <th class="min-w-100px">Estimado</th>
                     </tr>
                 </thead>
             </table>

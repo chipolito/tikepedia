@@ -49,7 +49,8 @@ var KTTicket = (function () {
                 {data: 'ticket_folio'},
                 {data: 'ticket_sunto'},
                 {data: 'ticket_created_at'},
-                {data: 'ticket_prioridad'}
+                {data: 'ticket_prioridad'},
+                {data: 'ticket_sla'}
             ],
             columnDefs: [
                 {
@@ -102,6 +103,31 @@ var KTTicket = (function () {
                                 <!--begin::Description-->
                                 <div class="">${prioridadDetalle.prioridad_nombre}</div>
                                 <div class="fs-7">Tiempo espera: ${slaTiempo.sla_periodo_hora < 10 ? '0' + slaTiempo.sla_periodo_hora : slaTiempo.sla_periodo_hora}:${slaTiempo.sla_periodo_minuto < 10 ? '0' + slaTiempo.sla_periodo_minuto : slaTiempo.sla_periodo_minuto} Hrs</div>
+                                <!--end::Description-->
+                            </div>
+                        `;
+                    }
+                },
+                {
+                    targets: 4,
+                    render: (data, type, row) => {
+                        let slaTiempo           = JSON.parse( row.ticket_sla_respuesta_detalle ),
+                            duracion            = moment.duration({ hours: slaTiempo.sla_periodo_hora, minutes: slaTiempo.sla_periodo_minuto }),
+                            fechaAsignado       = moment(row.ticket_updated_at).add(duracion),
+                            fechaActual         = moment(),
+                            horasAtraso         = fechaAsignado.diff(fechaActual, 'hours'),
+                            minutosAtraso       = fechaAsignado.diff(fechaActual, 'minutes');
+
+
+                        return `
+                            <div class="position-relative ps-3">
+                                <!--begin::Bullet-->
+                                <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-dark"></div>
+                                <!--end::Bullet-->
+
+                                <!--begin::Description-->
+                                <div class="">${fechaAsignado.format('DD/MM/YYYY HH:mm')}</div>
+                                <div class="fs-7">${horasAtraso > 0 ? horasAtraso + ' Horas restantes' : minutosAtraso + ' Minutos restantes'} </div>
                                 <!--end::Description-->
                             </div>
                         `;
