@@ -828,21 +828,21 @@
                     <form class="form" novalidate="novalidate" action="#" method="post" id="kt_ticket_detalle_form">
                         <div class="row g-5 mb-0">
                             <div class="col-md-6 fv-row">
-                                <div class="rounded py-3 px-5 bg-light-secondary">
+                                <div class="rounded py-3 px-5 bg-secondary">
                                     <p class="form-label mb-0">Departamento</p>
                                     <span id="lbl-ticket-detalle-departamento"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6 fv-row">
-                                <div class="rounded py-3 px-5 bg-light-secondary">
+                                <div class="rounded py-3 px-5 bg-secondary">
                                     <p class="form-label mb-0">Tema de ayuda</p>
                                     <span id="lbl-ticket-detalle-tema-ayuda"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6 fv-row">
-                                <div class="rounded py-3 px-5 bg-light-secondary">
+                                <div class="rounded py-3 px-5 bg-secondary">
                                     <div class="position-relative ps-6">
                                         <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-success"></div>
                                         <a href="javascript:void(0);" class="mb-1 form-label">Tiempo de espera</a>
@@ -852,22 +852,31 @@
                             </div>
 
                             <div class="col-md-6 fv-row">
-                                <div class="rounded py-3 px-5 bg-light-secondary" id="lbl-ticket-detalle-prioridad">
+                                <div class="rounded py-3 px-5 bg-secondary" id="lbl-ticket-detalle-prioridad">
                                     <div class="position-relative ps-6">
                                         <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 sub-bg-color"></div>
                                         <a href="javascript:void(0);" class="mb-1 form-label sub-text">Prioridad</a>
-                                        <div class="fs-7">El agente reevaluará este dato</div>
+                                        <div class="fs-7 title">El agente reevaluará este dato</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-12 fv-row">
-                                <div class="rounded py-3 px-5 bg-light-secondary">
-                                    <div class="d-flex">
-                                        <p class="form-label mb-0 me-auto">Asunto</p>
-                                        <p class="form-label mb-0 fs-7 text-end" id="lbl-ticket-detalle-fecha">Creacion</p>
-                                    </div>
+                            <div class="col-md-6 fv-row">
+                                <div class="rounded py-3 px-5 bg-secondary">
+                                    <p class="form-label mb-0">Asunto</p>
                                     <span id="lbl-ticket-detalle-asunto"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 fv-row">
+                                <div class="rounded py-3 px-5 bg-secondary">
+                                    <p class="form-label mb-0">Historia</p>
+                                    <span id="lbl-ticket-detalle-fecha"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 fv-row">
+                                <div class="rounded py-3 px-5 bg-secondary">
                                     <div id="ticket_detalle_detalle" style="height: auto !important;"></div>
                                 </div>
                             </div>

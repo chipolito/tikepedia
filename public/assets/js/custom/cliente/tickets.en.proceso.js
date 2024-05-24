@@ -6,29 +6,23 @@ var KTTicket = (function () {
         customDate      = document.querySelector('#kt_custom_ticket_flatpickr'),
         customDateRange = null,
         customDateClear = document.querySelector('#kt_custom_ticket_flatpickr_clear'),
-        customSearch    = document.querySelector('[data-kt-custom-ticket-filter="search"]');
+        customSearch    = document.querySelector('[data-kt-custom-ticket-filter="search"]'),
+        drawerElement   = document.querySelector('#kt_drawer_ticket_detalle'),
+        drawerTicketDetalle,
+        quillTicketDetalle;
 
     var configurarFiltros = () => {
-        customDateRange = $(customDate).flatpickr({
-            altInput: true,
-            altFormat: 'd/m/Y',
-            dateFormat: 'Y-m-d',
-            mode: 'range',
-            locale: localeFlatPickr,
-            onChange: function(e, t, n) {
-                let fecha_inicio    = e[0] ? new Date(e[0]) : null,
-                    fecha_final     = e[1] ? new Date(e[1]) : null;
-                    
-                $.fn.dataTable.ext.search.push((function() {
-                    let current_inicio  = new Date(moment($(customDatatable[4]).text(), "DD/MM/YYYY")),
-                        current_final   = new Date(moment($(customDatatable[4]).text(), "DD/MM/YYYY"));
+        $.fn.dataTable.ext.search.push((function( settings, data, dataIndex ) {
+            let fecha_inicio    = customDateRange.selectedDates[0] ? new Date(customDateRange.selectedDates[0]) : null,
+                fecha_final     = customDateRange.selectedDates[1] ? new Date(customDateRange.selectedDates[1]) : null;
 
-                    return null === fecha_inicio && null === fecha_final || null === fecha_inicio && fecha_final >= current_final || fecha_inicio <= current_inicio && null === fecha_final || fecha_inicio <= current_inicio && fecha_final >= current_final;
-                }));
-
-                customDatatable.draw();
-            }
-        });
+            let current_date = new Date(moment(data[2], 'DD/MM/YYYY'));
+                
+            return  (fecha_inicio === null && fecha_final === null) ||
+                    (fecha_inicio === null && current_date <= fecha_final) ||
+                    (fecha_inicio <= current_date && fecha_final === null) ||
+                    (fecha_inicio <= current_date && current_date <= fecha_final)
+        }));
 
         KTUtil.addEvent(customDateClear, 'click', function(e){
             customDateRange.clear();
@@ -155,12 +149,93 @@ var KTTicket = (function () {
 
     var configuracionGeneral = () => {
         $('.link-en-proceso').addClass('active');
+
+        drawerTicketDetalle = KTDrawer.getInstance(drawerElement);
+
+        quillTicketDetalle  = new Quill('#ticket_detalle_detalle', {
+            readOnly: true,
+            modules: {
+                toolbar: null
+            }
+        });
+
+        drawerTicketDetalle.on('kt.drawer.after.hidden', function() {
+            customDatatable.rows('.selected').deselect();
+        });
+
+        customDatatable.on('select', function (e, dt, type, indexes) {
+            if (type === 'row') {
+                let data                = customDatatable.rows(indexes).data()[0],
+                    detalleTema         = JSON.parse(data.ticket_tema_detalle),
+                    detallePrioridad    = JSON.parse(data.ticket_prioridad_detalle),
+                    detalleSla          = JSON.parse(data.ticket_sla_detalle);
+
+                $('#lbl-ticket-detalle-folio').html( `#${data.ticket_folio}` );
+                $('#lbl-ticket-detalle-fecha').html( `
+                    ${ moment(data.ticket_created_at).format('DD/MM/YYYY HH:mm') } Se Registró</br>
+                    ${ moment(data.ticket_updated_at).format('DD/MM/YYYY HH:mm') } Se Asignó</br>
+                ` );
+                $('#lbl-ticket-detalle-departamento').html( data.ticket_departamento_nombre );
+                $('#lbl-ticket-detalle-tema-ayuda').html( detalleTema.tema_nombre );
+                $('#lbl-ticket-detalle-asunto').html( data.ticket_sunto );
+                quillTicketDetalle.setContents(JSON.parse(data.ticket_detalle));
+                $('#contenedor-ticket-detalle-evidencia').html('');
+                $('#lbl-ticket-detalle-prioridad').find('.sub-bg-color').css('background-color', detallePrioridad.prioridad_color);
+                $('#lbl-ticket-detalle-prioridad').find('.sub-text').html(`Prioridad: ${detallePrioridad.prioridad_nombre}`);
+                $('#lbl-ticket-detalle-prioridad').find('.title').html(detallePrioridad.prioridad_descripcion);
+                $('#lbl-ticket-detalle-sla-espera').html(`${detalleSla.sla_periodo_hora < 10 ? '0' + detalleSla.sla_periodo_hora : detalleSla.sla_periodo_hora}:${detalleSla.sla_periodo_minuto < 10 ? '0' + detalleSla.sla_periodo_minuto : detalleSla.sla_periodo_minuto} Horas`);
+
+                if(data.ticket_evidencia) {
+                    let evidencias      = JSON.parse( data.ticket_evidencia ),
+                        evidenciaItem   = '';
+
+                    evidencias.forEach(evidencia => {
+                        let url = `${baseUrl}assets/evidencia/ticket/${data.ticket_id}/${evidencia.newName}`;
+
+                        evidenciaItem += `
+                            <!--begin::Item-->
+                            <div class="d-flex flex-stack">
+                                <!--begin::Title-->
+                                <a href="${url}" target="_blank" rel="noopener noreferrer" class="text-primary opacity-75-hover fs-6 fw-semibold">${evidencia.file}</a>                  
+                                <!--end::Title-->  
+
+                                <!--begin::Action-->
+                                <a href="${url}" target="_blank" rel="noopener noreferrer" class="btn btn-icon btn-sm h-auto btn-color-gray-500 btn-active-color-primary justify-content-end">
+                                    <i class="ki-outline ki-exit-right-corner fs-2"></i>
+                                </a>
+                                <!--end::Action-->
+                            </div>
+                            <!--end::Item-->
+
+                            <!--begin::Separator-->
+                            <div class="separator separator-dashed my-2"></div>
+                            <!--end::Separator-->
+                        `;
+                    });
+
+                    $('#contenedor-ticket-detalle-evidencia').html(evidenciaItem);
+                    $('#seccion-ticket-detalle-evidencia').removeClass('d-none');
+                } else { $('#seccion-ticket-detalle-evidencia').addClass('d-none'); }
+
+                drawerTicketDetalle.show();
+            }
+        });
+
+        customDateRange = $(customDate).flatpickr({
+            altInput: true,
+            altFormat: 'd/m/Y',
+            dateFormat: 'Y-m-d',
+            mode: 'range',
+            locale: localeFlatPickr,
+            onChange: function(e, t, n) {
+                customDatatable.draw();
+            }
+        });
     };
 
     return {
         init: function () {
             loadDatetable();
-            configurarFiltros();
             configuracionGeneral();
         }
     };
