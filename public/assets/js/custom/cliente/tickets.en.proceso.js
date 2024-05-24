@@ -115,7 +115,7 @@ var KTTicket = (function () {
 
                                 <!--begin::Description-->
                                 <div class="">${prioridadDetalle.prioridad_nombre}</div>
-                                <div class="fs-7">Tiempo respuesta: ${slaTiempo.sla_periodo_hora < 10 ? '0' + slaTiempo.sla_periodo_hora : slaTiempo.sla_periodo_hora}:${slaTiempo.sla_periodo_minuto < 10 ? '0' + slaTiempo.sla_periodo_minuto : slaTiempo.sla_periodo_minuto} Hrs</div>
+                                <div class="fs-7">Tiempo espera: ${slaTiempo.sla_periodo_hora < 10 ? '0' + slaTiempo.sla_periodo_hora : slaTiempo.sla_periodo_hora}:${slaTiempo.sla_periodo_minuto < 10 ? '0' + slaTiempo.sla_periodo_minuto : slaTiempo.sla_periodo_minuto} Hrs</div>
                                 <!--end::Description-->
                             </div>
                         `;
@@ -128,7 +128,8 @@ var KTTicket = (function () {
                             duracion            = moment.duration({ hours: slaTiempo.sla_periodo_hora, minutes: slaTiempo.sla_periodo_minuto }),
                             fechaAsignado       = moment(row.ticket_updated_at).add(duracion),
                             fechaActual         = moment(),
-                            horasAtraso         = fechaAsignado.diff(fechaActual, 'hours');
+                            horasAtraso         = fechaAsignado.diff(fechaActual, 'hours'),
+                            minutosAtraso       = fechaAsignado.diff(fechaActual, 'minutes');
 
                         return `
                             <div class="position-relative ps-3">
@@ -138,7 +139,7 @@ var KTTicket = (function () {
 
                                 <!--begin::Description-->
                                 <div class="">${fechaAsignado.format('DD/MM/YYYY HH:mm')}</div>
-                                <div class="fs-7">${horasAtraso} Horas restantes</div>
+                                <div class="fs-7">${horasAtraso > 0 ? horasAtraso + ' Horas restantes' : minutosAtraso + ' Minutos restantes'} </div>
                                 <!--end::Description-->
                             </div>
                         `;
