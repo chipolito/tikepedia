@@ -97,6 +97,16 @@ class Ticket extends ResourceController
              *          no tienen asignado un agente y esta en el tiempo limite para dar una respuesta segun SLA
             **/
 
+            /**
+             *[2] =>    Mostrar los tickets sin atender - Son los tickets nuevos pero no han tenido ninguna intervencion
+             *          no tienen asignado un agente y ya pasó el timepo de respuesta segun SLA
+            **/
+
+            /**
+             *[3] =>    Mostrar los tickets en proceso - Son los tickets nuevos que se han asignado a un tecnico
+             *          y esta en tiempo de respuesta segun SLA
+            **/
+
             $builder->where('ticket.ticket_usuario_registra', session()->get('usuario_id'));
 
             switch ($condicion) {
@@ -111,6 +121,12 @@ class Ticket extends ResourceController
                     $builder->where('ticket.ticket_agente', null);
                     $builder->where('(ticket.ticket_created_at + INTERVAL sl.sla_periodo_hora HOUR + INTERVAL sl.sla_periodo_minuto MINUTE) < CURRENT_TIMESTAMP()');
                     $builder->orderBy('ticket.ticket_created_at', 'desc');
+                    break;
+                case 3:
+                    $builder->where('ticket.ticket_estatus', 2);
+                    $builder->where('ticket.ticket_agente >', 0);
+                    $builder->where('(ticket.ticket_updated_at + INTERVAL sla.sla_periodo_hora HOUR + INTERVAL sla.sla_periodo_minuto MINUTE) > CURRENT_TIMESTAMP()');
+                    $builder->orderBy('ticket.ticket_updated_at', 'desc');
                     break;
                 default:
                     $builder->where('ticket.ticket_estatus', 1);

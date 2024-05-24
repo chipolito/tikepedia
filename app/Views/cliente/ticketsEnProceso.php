@@ -131,11 +131,9 @@
                 <thead>
                     <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                         <th class="min-w-50px">Folio</th>
-                        <th class="min-w-100px">Departamento</th>
-                        <th class="min-w-100px">Tema</th>
                         <th class="min-w-175px">Asunto</th>
-                        <th class="min-w-100px">Registro</th>
-                        <th class="min-w-100px">Agente</th>
+                        <th class="min-w-100px">Registró</th>
+                        <th class="min-w-100px">Asignó</th>
                         <th class="min-w-100px">Prioridad</th>
                         <th class="min-w-100px">Estimado</th>
                     </tr>

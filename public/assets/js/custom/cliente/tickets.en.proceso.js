@@ -41,11 +41,114 @@ var KTTicket = (function () {
 
     var loadDatetable = () => {
         customDatatable = $(customTable).DataTable({
+            ajax: {
+                url: `${baseUrl}api/ticket/3`,
+                dataSrc: (result) => {
+                    return result.messages.data
+                }
+            },
             info: false,
-            order: [],
             pageLength: 10,
-            columnDefs: [],
-            language: KTCliente.languageDataTable
+            language: KTCliente.languageDataTable,
+            select: true,
+            columns: [
+                {data: 'ticket_folio'},
+                {data: 'ticket_sunto'},
+                {data: 'ticket_created_at'},
+                {data: 'ticket_updated_at'},
+                {data: 'ticket_prioridad'},
+                {data: 'ticket_sla'}
+            ],
+            columnDefs: [
+                {
+                    target: 0,
+                    render: (data, type, row) => {
+                        return `
+                            <div class="d-flex align-items-center">
+                                <!--begin::Bullet-->
+                                <span class="bullet bullet-vertical h-40px me-2 bg-success"></span>
+                                <!--end::Bullet-->
+
+                                <!--begin::Description-->
+                                <span class="">${data}</span>
+                                <!--end::Description-->
+                            </div>
+                        `;
+                    }
+                    
+                },
+                {
+                    target: 1,
+                    render: (data, type, row) => {
+                        return `
+                            <div class="d-flex flex-column">
+                                <span>${data}</span>
+                                <span class="fs-7">Departamento: ${row.ticket_departamento_nombre}</span>
+                            </div>
+                        `;
+                    }
+                    
+                },
+                {
+                    targets: 2,
+                    render: (data) => {
+                        return moment(data).format('DD/MM/YYYY HH:mm');
+                    }
+                },
+                {
+                    targets: 3,
+                    render: (data) => {
+                        return moment(data).format('DD/MM/YYYY HH:mm');
+                    }
+                },
+                {
+                    targets: 4,
+                    render: (data, type, row) => {
+                        let prioridadDetalle    = JSON.parse( row.ticket_prioridad_detalle ),
+                            slaTiempo           = JSON.parse( row.ticket_sla_detalle );
+
+                        return `
+                            <div class="position-relative ps-3">
+                                <!--begin::Bullet-->
+                                <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2" style="background-color: ${prioridadDetalle.prioridad_color}"></div>
+                                <!--end::Bullet-->
+
+                                <!--begin::Description-->
+                                <div class="">${prioridadDetalle.prioridad_nombre}</div>
+                                <div class="fs-7">Tiempo respuesta: ${slaTiempo.sla_periodo_hora < 10 ? '0' + slaTiempo.sla_periodo_hora : slaTiempo.sla_periodo_hora}:${slaTiempo.sla_periodo_minuto < 10 ? '0' + slaTiempo.sla_periodo_minuto : slaTiempo.sla_periodo_minuto} Hrs</div>
+                                <!--end::Description-->
+                            </div>
+                        `;
+                    }
+                },
+                {
+                    targets: 5,
+                    render: (data, type, row) => {
+                        let slaTiempo           = JSON.parse( row.ticket_sla_detalle ),
+                            duracion            = moment.duration({ hours: slaTiempo.sla_periodo_hora, minutes: slaTiempo.sla_periodo_minuto }),
+                            fechaAsignado       = moment(row.ticket_updated_at).add(duracion),
+                            fechaActual         = moment(),
+                            horasAtraso         = fechaAsignado.diff(fechaActual, 'hours');
+
+                        return `
+                            <div class="position-relative ps-3">
+                                <!--begin::Bullet-->
+                                <div class="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-dark"></div>
+                                <!--end::Bullet-->
+
+                                <!--begin::Description-->
+                                <div class="">${fechaAsignado.format('DD/MM/YYYY HH:mm')}</div>
+                                <div class="fs-7">${horasAtraso} Horas restantes</div>
+                                <!--end::Description-->
+                            </div>
+                        `;
+                    }
+                }
+            ],
+            order: [],
+            initComplete: function () {
+                configurarFiltros();
+            }
         });
     };
 
