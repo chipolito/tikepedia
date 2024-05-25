@@ -861,23 +861,19 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 fv-row">
+                            <div class="col-md-12 fv-row">
                                 <div class="rounded py-3 px-5 bg-secondary">
                                     <p class="form-label mb-0">Asunto</p>
                                     <span id="lbl-ticket-detalle-asunto"></span>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 fv-row">
-                                <div class="rounded py-3 px-5 bg-secondary">
-                                    <p class="form-label mb-0">Historia</p>
-                                    <span id="lbl-ticket-detalle-fecha"></span>
-                                </div>
-                            </div>
-
                             <div class="col-md-12 fv-row">
                                 <div class="rounded py-3 px-5 bg-secondary">
+                                    <p class="form-label mb-0">Detalle</p>
                                     <div id="ticket_detalle_detalle" style="height: auto !important;"></div>
+                                    <p class="form-label mb-0 text-end">Proceso</p>
+                                    <p id="lbl-ticket-detalle-fecha" class="text-end"></p>
                                 </div>
                             </div>
                         </div>

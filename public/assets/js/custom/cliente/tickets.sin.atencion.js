@@ -148,7 +148,10 @@ var KTTicket = (function () {
                     horasAtraso         = fechaActual.diff(fechaRegistro, 'hours') - (diasAtraso * 24);
 
                 $('#lbl-ticket-detalle-folio').html( `#${data.ticket_folio}` );
-                $('#lbl-ticket-detalle-fecha').html( `${diasAtraso > 0 ? diasAtraso + ' Días' : ''} ${horasAtraso} Horas Sin atención` );
+                $('#lbl-ticket-detalle-fecha').html(`
+                    ${moment(data.ticket_created_at).format('DD/MM/YYYY HH:mm')} Se registró </br>
+                    Tiene ${diasAtraso > 0 ? diasAtraso + ' Días' : ''} ${horasAtraso} Horas Sin atención
+                `);
                 $('#lbl-ticket-detalle-departamento').html( data.ticket_departamento_nombre );
                 $('#lbl-ticket-detalle-tema-ayuda').html( detalleTema.tema_nombre );
                 $('#lbl-ticket-detalle-asunto').html( data.ticket_sunto );

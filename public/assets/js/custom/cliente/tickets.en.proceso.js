@@ -49,7 +49,6 @@ var KTTicket = (function () {
                 {data: 'ticket_folio'},
                 {data: 'ticket_sunto'},
                 {data: 'ticket_created_at'},
-                {data: 'ticket_updated_at'},
                 {data: 'ticket_prioridad'},
                 {data: 'ticket_sla'}
             ],
@@ -91,12 +90,6 @@ var KTTicket = (function () {
                 },
                 {
                     targets: 3,
-                    render: (data) => {
-                        return moment(data).format('DD/MM/YYYY HH:mm');
-                    }
-                },
-                {
-                    targets: 4,
                     render: (data, type, row) => {
                         let prioridadDetalle    = JSON.parse( row.ticket_prioridad_detalle ),
                             slaTiempo           = JSON.parse( row.ticket_sla_detalle );
@@ -116,14 +109,14 @@ var KTTicket = (function () {
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 4,
                     render: (data, type, row) => {
                         let slaTiempo           = JSON.parse( row.ticket_sla_detalle ),
                             duracion            = moment.duration({ hours: slaTiempo.sla_periodo_hora, minutes: slaTiempo.sla_periodo_minuto }),
-                            fechaAsignado       = moment(row.ticket_updated_at).add(duracion),
+                            fechaLimite         = moment(row.ticket_updated_at).add(duracion),
                             fechaActual         = moment(),
-                            horasAtraso         = fechaAsignado.diff(fechaActual, 'hours'),
-                            minutosAtraso       = fechaAsignado.diff(fechaActual, 'minutes');
+                            horasRestante       = fechaLimite.diff(fechaActual, 'hours'),
+                            minutosRestante       = fechaLimite.diff(fechaActual, 'minutes');
 
                         return `
                             <div class="position-relative ps-3">
@@ -132,8 +125,8 @@ var KTTicket = (function () {
                                 <!--end::Bullet-->
 
                                 <!--begin::Description-->
-                                <div class="">${fechaAsignado.format('DD/MM/YYYY HH:mm')}</div>
-                                <div class="fs-7">${horasAtraso > 0 ? horasAtraso + ' Horas restantes' : minutosAtraso + ' Minutos restantes'} </div>
+                                <div class="">${fechaLimite.format('DD/MM/YYYY HH:mm')}</div>
+                                <div class="fs-7">${horasRestante > 0 ? horasRestante + ' Horas' : minutosRestante + ' Minutos'} restantes</div>
                                 <!--end::Description-->
                             </div>
                         `;
@@ -165,15 +158,47 @@ var KTTicket = (function () {
 
         customDatatable.on('select', function (e, dt, type, indexes) {
             if (type === 'row') {
-                let data                = customDatatable.rows(indexes).data()[0],
-                    detalleTema         = JSON.parse(data.ticket_tema_detalle),
-                    detallePrioridad    = JSON.parse(data.ticket_prioridad_detalle),
-                    detalleSla          = JSON.parse(data.ticket_sla_detalle);
+                let data                    = customDatatable.rows(indexes).data()[0],
+                    detalleTema             = JSON.parse(data.ticket_tema_detalle),
+                    detallePrioridad        = JSON.parse(data.ticket_prioridad_detalle),
+                    detalleSlaRespuesta     = JSON.parse(data.ticket_sla_respuesta_detalle),
+                    detalleSla              = JSON.parse(data.ticket_sla_detalle);
+
+                let duracion                = moment.duration({ hours: detalleSla.sla_periodo_hora, minutes: detalleSla.sla_periodo_minuto }),
+                    duracionRespuesta       = moment.duration({ hours: detalleSlaRespuesta.sla_periodo_hora, minutes: detalleSlaRespuesta.sla_periodo_minuto });
+
+                let fechaRegistro           = moment(data.ticket_created_at),
+                    fechaAsigno             = moment(data.ticket_updated_at),
+                    fechaLimite             = moment(fechaAsigno).add(duracion),
+                    fechaLimiteRespuesta    = moment(data.ticket_created_at).add(duracionRespuesta),
+                    fechaActual             = moment();
+
+                let horasRestante           = fechaLimite.diff(fechaActual, 'hours'),
+                    minutosRestante         = fechaLimite.diff(fechaActual, 'minutes');
+
+                    
+                let diasAtraso              = fechaAsigno.diff(fechaLimiteRespuesta, 'days'),
+                    horasAtraso             = fechaAsigno.diff(fechaLimiteRespuesta, 'hours') - (diasAtraso * 24),
+                    minutosRetraso          = fechaAsigno.diff(fechaLimiteRespuesta, 'minutes') - ( (diasAtraso * 24) + horasAtraso ) * 60;
+
+                let letreroRetraso          = '';
+
+                if(diasAtraso > 0 || horasAtraso > 0 || minutosRetraso > 0 ) {
+                    letreroRetraso = 'Se retrasó';
+
+                    if(diasAtraso > 0) letreroRetraso += ` ${diasAtraso} Días`;
+                    if(horasAtraso > 0) letreroRetraso += ` ${horasAtraso} Horas`;
+                    if(minutosRetraso > 0) letreroRetraso += ` ${minutosRetraso} Minutos`;
+
+                    letreroRetraso += ' en atenderse</br>';
+                }
 
                 $('#lbl-ticket-detalle-folio').html( `#${data.ticket_folio}` );
                 $('#lbl-ticket-detalle-fecha').html( `
-                    ${ moment(data.ticket_created_at).format('DD/MM/YYYY HH:mm') } Se Registró</br>
-                    ${ moment(data.ticket_updated_at).format('DD/MM/YYYY HH:mm') } Se Asignó</br>
+                    ${ fechaRegistro.format('DD/MM/YYYY HH:mm') } Se Registró</br>
+                    ${letreroRetraso}
+                    ${ fechaAsigno.format('DD/MM/YYYY HH:mm') } Se Asignó</br>
+                    Tiene ${horasRestante > 0 ? horasRestante + ' Horas' : minutosRestante + ' Minutos'} restantes para ser resuelto
                 ` );
                 $('#lbl-ticket-detalle-departamento').html( data.ticket_departamento_nombre );
                 $('#lbl-ticket-detalle-tema-ayuda').html( detalleTema.tema_nombre );
@@ -183,7 +208,7 @@ var KTTicket = (function () {
                 $('#lbl-ticket-detalle-prioridad').find('.sub-bg-color').css('background-color', detallePrioridad.prioridad_color);
                 $('#lbl-ticket-detalle-prioridad').find('.sub-text').html(`Prioridad: ${detallePrioridad.prioridad_nombre}`);
                 $('#lbl-ticket-detalle-prioridad').find('.title').html(detallePrioridad.prioridad_descripcion);
-                $('#lbl-ticket-detalle-sla-espera').html(`${detalleSla.sla_periodo_hora < 10 ? '0' + detalleSla.sla_periodo_hora : detalleSla.sla_periodo_hora}:${detalleSla.sla_periodo_minuto < 10 ? '0' + detalleSla.sla_periodo_minuto : detalleSla.sla_periodo_minuto} Horas`);
+                $('#lbl-ticket-detalle-sla-espera').html(`${detalleSla.sla_periodo_hora < 10 ? '0' + detalleSla.sla_periodo_hora : detalleSla.sla_periodo_hora}:${detalleSla.sla_periodo_minuto < 10 ? '0' + detalleSla.sla_periodo_minuto : detalleSla.sla_periodo_minuto} Hrs | ${fechaLimite.format('DD/MM/YYYY HH:mm')}`);
 
                 if(data.ticket_evidencia) {
                     let evidencias      = JSON.parse( data.ticket_evidencia ),
